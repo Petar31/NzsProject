@@ -1,0 +1,26 @@
+﻿<h2 class="text-center">Add subject to professor</h2>
+
+<div class="row">
+	<form class="col-sm-12 form-inline justify-content-around" asp-action="AddSubjectToProf">
+
+		<select name="prof" class="form-control">
+			<option>Select prof</option>
+			@foreach (var item in ViewBag.Profs)
+			{
+				<option value="@item.Id">@item.UserName</option>
+			}
+		</select>
+		<select name="subject" class="form-control">
+			<option>Select subject</option>
+			@foreach (var item in ViewBag.Subjects)
+			{
+				<option value="@item.Id">@item.Name</option>
+			}
+		</select>
+		<button type="submit" class="btn btn-warning">Add</button>
+	</form>
+</div>
+
+@section Scripts {
+	@await Html.PartialAsync("_ValidationScriptsPartial")
+}

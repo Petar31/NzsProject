@@ -1,0 +1,29 @@
+﻿
+<h2 class="text-center">Add User In Role</h2>
+@ViewBag.Message
+
+<div class="row">
+	<form class="col-sm-12 form-inline justify-content-around" asp-action="AddUserInRole">
+		<select name="user" class="form-control">
+			<option>Select User</option>
+			@foreach (var item in ViewBag.Users)
+			{
+				<option value="@item.Id">@item.UserName</option>
+			}
+		</select>
+		<select name="role" class="form-control">
+			<option>Select Role</option>
+			@foreach (var item in ViewBag.Roles)
+			{
+				<option value="@item.Id">@item.Name</option>
+			}
+		</select>
+		<button type="submit" class="btn btn-warning">Add user in role</button>
+	</form>
+</div>
+
+@section Scripts {
+	@await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+

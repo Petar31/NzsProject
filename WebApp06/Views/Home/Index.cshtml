@@ -1,0 +1,14 @@
+﻿
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="row">
+	<div class="col-sm-4">
+		@if (!ViewBag.AdminExsists)
+		{
+			<a asp-controller="Role" asp-action="SystemAdmin" class="btn btn-danger">Add admin</a>
+		}
+	</div>
+</div>

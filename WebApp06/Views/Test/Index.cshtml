@@ -1,0 +1,274 @@
+﻿
+@{
+	ViewData["Title"] = "Index";
+}
+<!-- include vue -->
+<script src="//unpkg.com/vue"></script>
+<!-- axios -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+
+<div id="app">
+
+	<div class="row">
+
+		<div class="col-sm-2 form-group">
+			<select class="form-control" id="selectSubject" ref="selectSubject" v-model="postObject.subject" v-on:change="getGrades($event)">
+				<option disabled value="">Select subject</option>
+				<option v-for="sub in subjects" v-bind:value="sub.id">{{sub.name}}</option>
+			</select>
+		</div>
+
+		<div class="col-sm-2">
+			<select class="form-control" id="selectGrade" ref="selectGrade" v-on:change="getLevels($event)" v-model="postObject.grade">
+				<option disabled value="">{{first[0]}}</option>
+				<option v-for="grade in grades" v-bind:value="grade">{{grade}}</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<select class="form-control" id="selectLevel1" v-model="postObject.level1">
+				<option disabled value="">{{first[1]}}</option>
+				<option v-for="x in levels[0]" v-bind:value="x">{{x}}</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<select class="form-control" id="selectLevel2" v-model="postObject.level2">
+				<option disabled value="">{{first[2]}}</option>
+				<option v-for="x in levels[1]" v-bind:value="x">{{x}}</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<select class="form-control" id="selectLevel3" v-model="postObject.level3">
+				<option disabled value="">{{first[3]}}</option>
+				<option v-for="x in levels[2]" v-bind:value="x">{{x}}</option>
+			</select>
+		</div>
+		<div class="col-sm-2">
+			<input type="submit" class="btn btn-success" value="Submit" v-on:click="submitObject()" />
+		</div>
+	</div>
+
+
+	<div class="row" id="res">
+	<div class="col-sm-10">
+		<div class="card" v-if="questions.length > 0" v-for="question in questions">
+			<div class="card-header">{{question.context}}</div>
+			<div class="card-body" v-if="generateRandom() % 4 == 1">
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
+				<label>{{question.correctAnswer}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
+				<label>{{question.wrongAnswer1}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
+				<label>{{question.wrongAnswer2}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
+				<label>{{question.wrongAnswer3}}</label><br />
+			</div>
+
+			<div class="card-body" v-else-if="generateRandom() % 4 == 2">
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
+				<label>{{question.wrongAnswer1}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
+				<label>{{question.correctAnswer}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
+				<label>{{question.wrongAnswer2}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
+				<label>{{question.wrongAnswer3}}</label><br />
+			</div>
+
+			<div class="card-body" v-else-if="generateRandom() % 4 == 3">
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
+				<label>{{question.wrongAnswer1}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
+				<label>{{question.wrongAnswer2}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
+				<label>{{question.correctAnswer}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
+				<label>{{question.wrongAnswer3}}</label><br />
+			</div>
+
+			<div class="card-body" v-else="">
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
+				<label>{{question.wrongAnswer1}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
+				<label>{{question.wrongAnswer2}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
+				<label>{{question.wrongAnswer3}}</label><br />
+				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
+				<label>{{question.correctAnswer}}</label><br />
+			</div>
+		</div>
+	</div>
+
+	<div class="col-sm-2">
+		<button class="btn btn-warning" v-on:click="saveTest()">Save test</button>
+		<div>{{message}}</div>
+	</div>
+		
+	</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+	let vue = new Vue({
+		el: "#app",
+		created() {
+			this.fetchData();
+		},
+		data: {
+
+			subjects: [],
+			grades: [],
+			levels: [],
+			first: [
+				'Select grade',
+				'Select level 1',
+				'Select level 2',
+				'Select level 3',
+
+			],
+			postObject: {
+				subject: '',
+				grade: '',
+				level1: '',
+				level2: '',
+				level3: ''
+			},
+			questions: '',
+			testIds: [],
+			message: ''
+
+
+		},
+		methods: {
+			fetchData() {
+				axios.get("/Test/GetSubjectsAsync").then(x => this.subjects = x.data);
+			},
+			getGrades(event) {
+				document.getElementById("res").style.visibility = "hidden";
+				axios.get(`/Test/GetGrades?subjectId=${event.target.value}`).then(x => this.grades = x.data);
+			},
+			getLevels(event) {
+				document.getElementById("res").style.visibility = "hidden";
+				axios.get(`/Test/GetLevels?grade=${event.target.value}&subjectId=${this.$refs.selectSubject.value}`).then(x => this.levels = x.data);
+			},
+
+			generateRandom() {
+				var rnd = Math.ceil(Math.random() * 4);
+				return rnd;
+			},
+			submitObject() {
+				axios({
+					method: "post",
+					url: "/Test/GenerateTest",
+					data: {
+						"Subject": this.postObject.subject,
+						"Grade": this.postObject.grade,
+						"Level1": this.postObject.level1,
+						"Level2": this.postObject.level2,
+						"Level3": this.postObject.level3,
+
+					}
+				}).then(x => { this.questions = x.data; document.getElementById("res").style.visibility = "visible"; }).catch(error => this.questions = error);
+			},
+
+			saveTest() {
+				for (var i in this.questions) {
+					this.testIds.push(this.questions[i].id);
+
+				}
+				console.log(this.testIds);
+				axios({
+					method: "post",
+					url: "/Test/SaveTest",
+					data: {
+						"Ids": this.testIds
+					}
+				}).then(x => { this.message = x.data }).catch(error => this.message = error);
+			}
+		}
+
+	})
+
+
+		//var btn = document.getElementById("btn");
+
+		//	btn.addEventListener("click", function () {
+		//		setTimeout(function myfunction() {
+		//			var ul1 = document.getElementsByClassName("ul1");
+		//			var ul2 = document.getElementsByClassName("ul2");
+
+		//			for (var i = 0; i < ul1.length; i++) {
+		//				var liCol = ul1[i].cloneNode(true);
+		//				while (ul1[i].firstChild) {
+		//					ul1[i].removeChild(ul1[i].firstChild);
+		//				}
+
+
+
+		//				while (liCol.children.length > 0) {
+		//					var rnd = Math.floor(Math.random() * liCol.children.length);
+
+		//					ul2[i].appendChild(liCol.children[rnd]);
+		//					console.log(liCol.children);
+		//			}
+		//			}
+
+		//		}, 500)
+		//})
+
+
+		//var res = document.getElementById("res");
+		//var arr = [];
+		//console.log(ul1);
+
+		//for (var i = 0; i < ul1.length; i++) {
+		//	var newColl = [];
+
+		//	var div = document.createElement("div");
+		//	var content = [];
+		//	for (var j = ul1[i].children.length - 1; j > -1; j--) {
+
+
+
+		//		content.push(ul1[i].children[j].textContent);
+		//		res.appendChild(div);
+		//		ul1[i].removeChild(ul1[i].children[j]);
+
+		//	}
+
+		//	arr.push(content);
+
+		//}
+		//console.log(ul1);
+
+
+		//for (var i = 0; i < ul1.length; i++) {
+		//	while (arr[i].length > 0) {
+		//		var rnd = Math.floor(Math.random() * arr[i].length);
+		//		// console.log(content.length);
+		//		var li = document.createElement("li");
+		//		li.innerHTML = `<input type='radio' value='${arr[i][rnd]}' name='list${[i]}'/><span>${arr[i][rnd]}</span>`;
+
+		//		ul1[i].appendChild(li);
+		//		arr[i].splice(rnd, 1);
+		//	}
+		//}
+
+
+
+
+
+</script>
+
+
+

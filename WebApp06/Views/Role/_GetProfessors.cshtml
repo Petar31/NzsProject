@@ -1,0 +1,29 @@
+﻿@model IEnumerable<WebApp06.Models.Test.Professor>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                User Name
+            </th>
+            <th>
+                Subject
+            </th>
+          
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @item.ApplicationUser.UserName
+            </td>
+            <td>
+                @item.Subject.Name
+            </td>
+            
+        </tr>
+}
+    </tbody>
+</table>
