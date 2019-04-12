@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace WebApp.Controllers
 {
-	//[Authorize(Roles = "professor")]
+	[Authorize(Roles = "professor")]
 	public class TestController : Controller
 	{
 		private readonly ITestService testService;
@@ -28,7 +28,10 @@ namespace WebApp.Controllers
 		[Authorize]
 		public IActionResult Index()
 		{
-			return View();
+            string fName = userManager.Users.Where(x => x.Id == userManager.GetUserId(User)).First().FirstName;
+            string lName = userManager.Users.Where(x => x.Id == userManager.GetUserId(User)).First().LastName;
+            ViewBag.Name = $"Professor: {fName} {lName}";
+            return View();
 		}
 
 		public async Task<JsonResult> GetSubjectsAsync(){
@@ -66,7 +69,7 @@ namespace WebApp.Controllers
 		[HttpPost]
 		public JsonResult SaveTest([FromBody] SaveTestModel	saveTestModel){
 
-            string msg = testService.SaveTest(saveTestModel);
+            string msg = testService.SaveTest(saveTestModel, userManager.GetUserId(User));
            
 
 			return Json(msg);
@@ -106,14 +109,24 @@ namespace WebApp.Controllers
 
 
 
-
-
-
-		public IActionResult Contact()
+		public IActionResult GetSavedTests()
 		{
-			ViewData["Message"] = "Your contact page.";
+            IEnumerable<SavedTest> savedTests;
+            try
+            {
+                 savedTests = testService.GetSavedTests(userManager.GetUserId(User));
+                return View(savedTests);
+            }
+            catch (Exception)
+            {
 
-			return View();
+                savedTests = null;
+            }
+
+        
+
+            return View(savedTests);
+			
 		}
 
 		

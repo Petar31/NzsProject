@@ -19,10 +19,13 @@ namespace WebApp06.Models.Test
 
 		IEnumerable<int> GetNumOfTestsByGrade(int grade, int subjectId);
 
-		string SaveTest(SaveTestModel savedTest);
+		string SaveTest(SaveTestModel savedTest, string profId);
 
 		string SaveQuestion(Question question);
 
-	
-	}
+        IEnumerable<SavedTest> GetSavedTests(string profId);
+
+
+
+    }
 }

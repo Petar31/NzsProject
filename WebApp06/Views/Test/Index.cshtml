@@ -7,6 +7,10 @@
 <!-- axios -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
 
+<div class="row">
+    <h3 class="text-center text-warning">@ViewBag.Name</h3>
+</div>
+
 <div id="app">
 
 	<div class="row">
@@ -175,8 +179,8 @@
 						"Level2": this.postObject.level2,
 						"Level3": this.postObject.level3,
 
-					}
-				}).then(x => { this.questions = x.data; document.getElementById("res").style.visibility = "visible"; }).catch(error => this.questions = error);
+                    }
+                }).then(x => { this.questions = x.data; document.getElementById("res").style.visibility = "visible"; this.message = "" }).catch(error => this.questions = error);
 			},
 
 			saveTest() {

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<WebApp06.Models.Test.SavedTest>
+
+@{
+    ViewData["Title"] = "GetSavedTests";
+}
+
+<h2>GetSavedTests</h2>
+
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Questions)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Date)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Grade)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Group)
+                </th>
+          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @for (int i = 0; i < item.Questions.Split('|').Length; i++)
+                {
+                    <a href="">@item.Questions.Split('|')[i]</a>
+                } 
+            </td>
+            <td>
+                @item.Date
+            </td>
+            <td>
+                @item.Grade
+            </td>
+            <td>
+                @item.Group
+            </td>
+          
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -79,7 +79,9 @@ namespace WebApp06.Models.Test
 			return numOfTests;
 		}
 
-		public List<Subject> GetSubjects(string userId)
+
+
+        public List<Subject> GetSubjects(string userId)
 		{
 			List<Subject> subjects = context.Subjects.FromSql($"select Subjects.Id, Subjects.Name from Subjects join Professors on Subjects.Id = Professors.SubjectId where Professors.UserId = {userId}").ToList();
 			return subjects;
@@ -110,7 +112,7 @@ namespace WebApp06.Models.Test
 
 		}
 
-		public string SaveTest(SaveTestModel savedTest)
+		public string SaveTest(SaveTestModel savedTest, string profId)
 		{
             string str = "";
             try
@@ -127,7 +129,9 @@ namespace WebApp06.Models.Test
                     Questions = str,
                     Group = savedTest.Group,
                     Date = DateTime.Now,
-                    Grade = (from x in context.Questions where x.Id == savedTest.Ids[0] select x.Grade).FirstOrDefault()
+                    Grade = (from x in context.Questions where x.Id == savedTest.Ids[0] select x.Grade).FirstOrDefault(),
+                    ProfessorId = profId
+                    
                 };
                 context.SavedTests.Add(test);
                 context.SaveChanges();
@@ -143,5 +147,22 @@ namespace WebApp06.Models.Test
 
 
 		}
-	}
+
+        public IEnumerable<SavedTest> GetSavedTests(string profId)
+        {
+            IEnumerable<SavedTest> savedTests;
+            try
+            {
+                savedTests = context.SavedTests.Where(x => x.ProfessorId == profId);
+            }
+            catch (Exception)
+            {
+                savedTests = null;
+            }
+
+            return savedTests;
+        }
+
+
+    }
 }

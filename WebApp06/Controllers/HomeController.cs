@@ -25,6 +25,11 @@ namespace WebApp06.Controllers
 			{
 				adminExsists = true;
 			}
+            if (User.IsInRole("admin"))
+            {
+                return RedirectToAction("Index", "Role");
+            }
+
 			//bool adminExsists = true;
 			ViewBag.AdminExsists = adminExsists;
 			return View();
