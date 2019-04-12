@@ -14,5 +14,9 @@ namespace WebApp06.Models.Test
 		public string Questions { get; set; }
 
 		public DateTime Date { get; set; }
-	}
+
+        public int Grade { get; set; }
+
+        public int Group { get; set; }
+    }
 }
