@@ -7,6 +7,7 @@ namespace WebApp06.Models.Test
 {
 	public class SaveTestModel
 	{
-		public int[] Ids { get; set; }
+        public int Group { get; set; }
+        public int[] Ids { get; set; }
 	}
 }

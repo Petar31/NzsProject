@@ -39,7 +39,7 @@
 		<div class="col-sm-2">
 			<select class="form-control" id="selectLevel3" v-model="postObject.level3">
 				<option disabled value="">{{first[3]}}</option>
-				<option v-for="x in levels[2]" v-bind:value="x">{{x}}</option>
+				<option v-for="x in levels[2]" v-bind:value="x" >{{x}}</option>
 			</select>
 		</div>
 		<div class="col-sm-2">
@@ -99,21 +99,18 @@
 	</div>
 
 	<div class="col-sm-2">
+        <label>Group</label>
+        <select class="form-control" v-model="group" v-on:change="function(){ return false;}">
+            <option disabled value="">{{first[4]}}</option>
+            <option v-for="n in 4" v-bind:value="n" >{{n}}</option>
+        </select><br />
 		<button class="btn btn-warning" v-on:click="saveTest()">Save test</button>
 		<div>{{message}}</div>
 	</div>
 		
 	</div>
 
-
-
-
-
 </div>
-
-
-
-
 
 
 
@@ -124,8 +121,8 @@
 		created() {
 			this.fetchData();
 		},
-		data: {
-
+        data: {
+            group : '',
 			subjects: [],
 			grades: [],
 			levels: [],
@@ -133,7 +130,8 @@
 				'Select grade',
 				'Select level 1',
 				'Select level 2',
-				'Select level 3',
+                'Select level 3',
+                'Select group'
 
 			],
 			postObject: {
@@ -190,7 +188,8 @@
 				axios({
 					method: "post",
 					url: "/Test/SaveTest",
-					data: {
+                    data: {
+                        "Group": this.group,
 						"Ids": this.testIds
 					}
 				}).then(x => { this.message = x.data }).catch(error => this.message = error);
@@ -200,69 +199,7 @@
 	})
 
 
-		//var btn = document.getElementById("btn");
-
-		//	btn.addEventListener("click", function () {
-		//		setTimeout(function myfunction() {
-		//			var ul1 = document.getElementsByClassName("ul1");
-		//			var ul2 = document.getElementsByClassName("ul2");
-
-		//			for (var i = 0; i < ul1.length; i++) {
-		//				var liCol = ul1[i].cloneNode(true);
-		//				while (ul1[i].firstChild) {
-		//					ul1[i].removeChild(ul1[i].firstChild);
-		//				}
-
-
-
-		//				while (liCol.children.length > 0) {
-		//					var rnd = Math.floor(Math.random() * liCol.children.length);
-
-		//					ul2[i].appendChild(liCol.children[rnd]);
-		//					console.log(liCol.children);
-		//			}
-		//			}
-
-		//		}, 500)
-		//})
-
-
-		//var res = document.getElementById("res");
-		//var arr = [];
-		//console.log(ul1);
-
-		//for (var i = 0; i < ul1.length; i++) {
-		//	var newColl = [];
-
-		//	var div = document.createElement("div");
-		//	var content = [];
-		//	for (var j = ul1[i].children.length - 1; j > -1; j--) {
-
-
-
-		//		content.push(ul1[i].children[j].textContent);
-		//		res.appendChild(div);
-		//		ul1[i].removeChild(ul1[i].children[j]);
-
-		//	}
-
-		//	arr.push(content);
-
-		//}
-		//console.log(ul1);
-
-
-		//for (var i = 0; i < ul1.length; i++) {
-		//	while (arr[i].length > 0) {
-		//		var rnd = Math.floor(Math.random() * arr[i].length);
-		//		// console.log(content.length);
-		//		var li = document.createElement("li");
-		//		li.innerHTML = `<input type='radio' value='${arr[i][rnd]}' name='list${[i]}'/><span>${arr[i][rnd]}</span>`;
-
-		//		ul1[i].appendChild(li);
-		//		arr[i].splice(rnd, 1);
-		//	}
-		//}
+		
 
 
 

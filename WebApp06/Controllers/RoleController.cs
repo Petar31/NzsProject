@@ -13,7 +13,7 @@ using WebApp06.Models.Role;
 
 namespace WebApp06.Controllers
 {
-	//[Authorize(Roles = "admin")]
+	[Authorize(Roles = "admin")]
 	public class RoleController : Controller
 	{
 		private UserManager<ApplicationUser> userManager;

@@ -12,6 +12,8 @@
     <Compile Remove="Migrations\20190404132505_Unknown.Designer.cs" />
     <Compile Remove="Migrations\20190408093425_CorrectQuestion.cs" />
     <Compile Remove="Migrations\20190408093425_CorrectQuestion.Designer.cs" />
+    <Compile Remove="Migrations\20190412081631_AddToSavedTest.cs" />
+    <Compile Remove="Migrations\20190412081631_AddToSavedTest.Designer.cs" />
   </ItemGroup>
 
 

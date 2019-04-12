@@ -10,12 +10,12 @@ namespace WebApp06.Models.AccountViewModels
 	{
 
 		[Required(ErrorMessage = "First name is required")]
-		[StringLength(20, ErrorMessage = "Min 5 characters", MinimumLength = 5)]
+		[StringLength(20, ErrorMessage = "Min 1 characters", MinimumLength = 1)]
 		[Display(Name = "First Name")]
 		public string FirstName { get; set; }
 
 		[Required(ErrorMessage = "Last name is required")]
-		[StringLength(20, ErrorMessage = "Min 5 characters", MinimumLength = 5)]
+		[StringLength(20, ErrorMessage = "Min 1 characters", MinimumLength = 1)]
 		[Display(Name = "Last Name")]
 		public string LastName { get; set; }
 
