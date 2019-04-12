@@ -112,39 +112,36 @@ namespace WebApp06.Models.Test
 
 		public string SaveTest(SaveTestModel savedTest)
 		{
-			try
+            string str = "";
+            try
 			{
-				string str = "";
-				try
-				{
+				
 
-					for (int i = 0; i < savedTest.Ids.Length; i++)
-					{
-						str = string.Concat(savedTest.Ids[i].ToString(), "|");
-					}
-					SavedTest test = new SavedTest()
-					{
-						Questions = str
-					};
-					context.SavedTests.Add(test);
-					context.SaveChanges();
-
-				}
-				catch (Exception)
-				{
-
-					throw;
-				}
+                for (int i = 0; i < savedTest.Ids.Length; i++)
+                {
+                    str = string.Concat(str, savedTest.Ids[i].ToString(), "|");
+                   
+                }
+                SavedTest test = new SavedTest()
+                {
+                    Questions = str,
+                    Group = savedTest.Group,
+                    Date = DateTime.Now,
+                    Grade = (from x in context.Questions where x.Id == savedTest.Ids[0] select x.Grade).FirstOrDefault()
+                };
+                context.SavedTests.Add(test);
+                context.SaveChanges();
 
 
-		
-				return "Successfully saved test";
+                return "Successfully saved test";
 			}
 			catch (Exception ex)
 			{
 
 				return ex.Message;
 			}
+
+
 		}
 	}
 }

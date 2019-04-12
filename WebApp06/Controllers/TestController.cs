@@ -65,8 +65,11 @@ namespace WebApp.Controllers
 		}
 		[HttpPost]
 		public JsonResult SaveTest([FromBody] SaveTestModel	saveTestModel){
-			
-			return Json("cao");
+
+            string msg = testService.SaveTest(saveTestModel);
+           
+
+			return Json(msg);
 
 		}
 

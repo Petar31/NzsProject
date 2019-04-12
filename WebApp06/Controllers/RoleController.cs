@@ -91,8 +91,8 @@ namespace WebApp06.Controllers
 				bool res = await userManager.IsInRoleAsync(applicationUser, identityRole.Name);
 				if (res)
 				{
-					ViewBag.Message = $"User {applicationUser.UserName} is already in role {identityRole.Name}";
-					return View();
+                    return RedirectToAction("Index", new { message = $"User {applicationUser.UserName} is already in role {identityRole.Name}" });
+                    
 				}
 				var res1 = await userManager.AddToRoleAsync(applicationUser, identityRole.Name);
 				if (res1.Succeeded)
