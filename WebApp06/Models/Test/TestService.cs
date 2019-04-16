@@ -128,6 +128,7 @@ namespace WebApp06.Models.Test
                 {
                     Questions = str,
                     Group = savedTest.Group,
+                    Name = savedTest.TestName,
                     Date = DateTime.Now,
                     Grade = (from x in context.Questions where x.Id == savedTest.Ids[0] select x.Grade).FirstOrDefault(),
                     ProfessorId = profId
@@ -154,6 +155,7 @@ namespace WebApp06.Models.Test
             try
             {
                 savedTests = context.SavedTests.Where(x => x.ProfessorId == profId);
+                
             }
             catch (Exception)
             {
@@ -163,6 +165,37 @@ namespace WebApp06.Models.Test
             return savedTests;
         }
 
+        public List<Question> GetQuestions(int id)
+        {
+            List<Question> questions = new List<Question>();
+            try
+            {
+                SavedTest savedTest = context.SavedTests.Find(id);
+                List<int> questionIds = new List<int>();
 
+                for (int i = 0; i < savedTest.Questions.Split("|").Length; i++)
+                {
+                    if (savedTest.Questions.Split("|")[i] != "")
+                    {
+                         questionIds.Add(int.Parse(savedTest.Questions.Split("|")[i]));
+                    }
+                   
+                }
+
+                foreach (int item in questionIds)
+                {
+                    questions.Add(context.Questions.Where(x => x.Id == item).SingleOrDefault());
+                }
+
+                return questions;
+            }
+            catch (Exception)
+            {
+
+                return questions;
+            }
+
+           
+        }
     }
 }

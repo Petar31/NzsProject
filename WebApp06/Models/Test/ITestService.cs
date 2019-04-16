@@ -25,6 +25,8 @@ namespace WebApp06.Models.Test
 
         IEnumerable<SavedTest> GetSavedTests(string profId);
 
+        List<Question> GetQuestions(int id);
+
 
 
     }

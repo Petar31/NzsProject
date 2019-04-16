@@ -14,7 +14,10 @@ namespace WebApp06.Models.Test
 
 		public string Questions { get; set; }
 
-		public DateTime Date { get; set; }
+        [StringLength(40)]
+        public string Name { get; set; }
+
+        public DateTime Date { get; set; }
 
         public int Grade { get; set; }
 

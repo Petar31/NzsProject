@@ -102,15 +102,18 @@
 		</div>
 	</div>
 
-	<div class="col-sm-2">
+    <div class="col-sm-2">
         <label>Group</label>
-        <select class="form-control" v-model="group" v-on:change="function(){ return false;}">
+        <select class="form-control" v-model="group">
             <option disabled value="">{{first[4]}}</option>
-            <option v-for="n in 4" v-bind:value="n" >{{n}}</option>
-        </select><br />
-		<button class="btn btn-warning" v-on:click="saveTest()">Save test</button>
-		<div>{{message}}</div>
-	</div>
+            <option v-for="n in 4" v-bind:value="n">{{n}}</option>
+        </select>
+        <span class="text-danger">{{valMsg1}}</span><br />
+        <input type="text" class="form-control" placeholder="Insert name" v-model="testName" />
+        <span class="text-danger">{{valMsg2}}</span><br />
+        <button class="btn btn-warning" v-on:click="saveTest()">Save test</button>
+        <div class="text-danger">{{message}}</div>
+    </div>
 		
 	</div>
 
@@ -147,7 +150,10 @@
 			},
 			questions: '',
 			testIds: [],
-			message: ''
+            message: '',
+            testName: "",
+            valMsg1: "",
+            valMsg2 : ""
 
 
 		},
@@ -187,12 +193,29 @@
 				for (var i in this.questions) {
 					this.testIds.push(this.questions[i].id);
 
-				}
+                }
+                if (this.group == "" || this.testName == "") {
+                    if (this.group == "") {
+                        this.valMsg1 = "Group is required"
+                         
+                    } else {
+                         this.valMsg1 = "";
+                     }
+                    if (this.testName == "") {
+                        this.valMsg2 = "Name is required"
+                        
+                      }else {
+                     this.valMsg2 = "";
+                    }
+                    return false;
+                }
+                
 				console.log(this.testIds);
 				axios({
 					method: "post",
 					url: "/Test/SaveTest",
                     data: {
+                        "TestName": this.testName,
                         "Group": this.group,
 						"Ids": this.testIds
 					}

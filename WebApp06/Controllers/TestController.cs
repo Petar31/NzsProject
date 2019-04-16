@@ -129,6 +129,19 @@ namespace WebApp.Controllers
 			
 		}
 
-		
-	}
+        [Route("Test/Details/{id?}/{name?}/{date?}/{grade?}/{group?}")]
+        public IActionResult Details(int id, string name, string date, string grade, string group)
+        {
+
+            ViewBag.Name = name;
+            ViewBag.Date = date;
+            ViewBag.Grade = grade;
+            ViewBag.Group = group;
+
+            return View(testService.GetQuestions(id));
+        }
+
+
+
+    }
 }

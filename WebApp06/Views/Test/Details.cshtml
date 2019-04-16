@@ -1,0 +1,57 @@
+﻿@model List<WebApp06.Models.Test.Question>
+
+@{
+    ViewData["Title"] = "Details";
+    int x = 0;
+    
+}
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Grade</th>
+                    <th>Group</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@ViewBag.Name</td>
+                    <td>@ViewBag.Date</td>
+                    <td>@ViewBag.Grade</td>
+                    <td>@ViewBag.Group</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>
+                            Questions
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@(++x)</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Context)
+                            </td>
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6"></div>
+    </div>
+
