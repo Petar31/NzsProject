@@ -27,6 +27,8 @@ namespace WebApp06.Models.Test
 
         List<Question> GetQuestions(int id);
 
+        string DeleteTest(int id);
+
 
 
     }

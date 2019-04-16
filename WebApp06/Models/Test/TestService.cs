@@ -197,5 +197,25 @@ namespace WebApp06.Models.Test
 
            
         }
+
+        public string DeleteTest(int id)
+        {
+           
+            try
+            {
+
+                //context.SavedTests.FromSql($"Delete from SavedTests where Id = {id}");
+                SavedTest savedTest = context.SavedTests.Find(id);
+                context.SavedTests.Remove(savedTest);
+                context.SaveChanges();
+                return "Test deleted";
+               
+            }
+            catch (Exception ex)
+            {
+
+                return ex.Message;
+            }
+        }
     }
 }

@@ -109,12 +109,13 @@ namespace WebApp.Controllers
 
 
 
-		public IActionResult GetSavedTests()
+		public IActionResult GetSavedTests(string message = "")
 		{
             IEnumerable<SavedTest> savedTests;
             try
             {
                  savedTests = testService.GetSavedTests(userManager.GetUserId(User));
+             
                 return View(savedTests);
             }
             catch (Exception)
@@ -123,8 +124,8 @@ namespace WebApp.Controllers
                 savedTests = null;
             }
 
-        
 
+            ViewBag.Message = message;
             return View(savedTests);
 			
 		}
@@ -139,6 +140,14 @@ namespace WebApp.Controllers
             ViewBag.Group = group;
 
             return View(testService.GetQuestions(id));
+        }
+
+        [HttpPost]
+        public IActionResult DeleteTest(int id)
+        {
+            string msg = testService.DeleteTest(id);
+
+            return RedirectToAction("GetSavedTests", "Test", new { message = msg});
         }
 
 

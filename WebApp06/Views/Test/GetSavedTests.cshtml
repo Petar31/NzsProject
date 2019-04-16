@@ -6,54 +6,92 @@
 }
 
 <h2>Saved Tests</h2>
-
+<h6 class="text-center text-danger">@ViewBag.Message</h6>
 
 <table class="table">
     <thead>
         <tr>
-                <th>Name</th>
-                <th>
-                    Questions
-                </th>
-                <th>
-                    Date
-                </th>
-                <th>
-                   Grade
-                </th>
-                <th>
-                    Group
-                </th>
-          
+            <th>Name</th>
+            <th>
+                Questions
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Grade
+            </th>
+            <th>
+                Group
+            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>@item.Name</td>
-            <td>
-                @for (int i = 0; i < item.Questions.Split('|').Length; i++)
-                {
-                    <a href="">@item.Questions.Split('|')[i]</a>
-                } 
-            </td>
-            <td>
-                @item.Date
-            </td>
-            <td>
-                @item.Grade
-            </td>
-            <td>
-                @item.Group
-            </td>
-          
-            <td>
-               
-                <a asp-action="Details" class="btn btn-sm btn-outline-info" asp-route-id="@item.Id" asp-route-name="@item.Name" asp-route-date="@item.Date" asp-route-grade="@item.Grade" asp-route-group="@item.Group">Details</a> 
-                <a asp-action="Delete" class="btn btn-sm btn-outline-danger" asp-route-testId="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>
+                    @for (int i = 0; i < item.Questions.Split('|').Length; i++)
+                    {
+                        <span>@item.Questions.Split('|')[i]</span>
+                    }
+                </td>
+                <td>
+                    @item.Date
+                </td>
+                <td>
+                    @item.Grade
+                </td>
+                <td>
+                    @item.Group
+                </td>
+
+                <td>
+
+                    <a asp-action="Details" class="btn btn-sm btn-outline-info" asp-route-id="@item.Id" asp-route-name="@item.Name" asp-route-date="@item.Date" asp-route-grade="@item.Grade" asp-route-group="@item.Group">Details</a>
+                    <a href=""  class="btn btn-sm btn-outline-danger" data-toggle="modal" onclick="deleteTest(@item.Id, '@item.Name')">Delete</a>
+                </td>
+            </tr>
+
+
+
+        }
     </tbody>
 </table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <form asp-action="DeleteTest">
+                    <input type="hidden" name="id" id="testId" />
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <input type="submit" value="Delete" id="link" class="btn btn-primary">
+                </form>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function deleteTest(id, name) {
+     
+        $("#exampleModalLabel").html("Delete " + name + " ?");
+        $('#exampleModal').modal('show');
+        $("#testId").attr("value", id);
+        
+       
+    }
+</script>
