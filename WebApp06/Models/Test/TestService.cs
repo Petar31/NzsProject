@@ -217,5 +217,21 @@ namespace WebApp06.Models.Test
                 return ex.Message;
             }
         }
+
+       
+        public IEnumerable<Question> GetQuestionsById(int subjectId, int grade)
+        {
+            IEnumerable<Question> questions;
+            try
+            {
+                questions = context.Questions.FromSql($"Select * from Questions where SubjectId ={subjectId} and Grade = {grade}");
+            }
+            catch (Exception)
+            {
+
+                questions = null;
+            }
+            return questions;
+        }
     }
 }

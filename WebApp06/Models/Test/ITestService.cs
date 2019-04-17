@@ -29,6 +29,8 @@ namespace WebApp06.Models.Test
 
         string DeleteTest(int id);
 
+        IEnumerable<Question> GetQuestionsById(int subjectId, int grade);
+
 
 
     }

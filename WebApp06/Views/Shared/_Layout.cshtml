@@ -42,7 +42,8 @@
                     }
                     @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "professor"))
                     {
-                        <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Test">Test</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Test">Random test</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-action="GetQuestions" asp-controller="Test">Test</a></li>
                         <li class="nav-item"><a class="nav-link" asp-action="AddQuestion" asp-controller="Test">Add question</a></li>
                         <li class="nav-item"><a class="nav-link" asp-action="GetSavedTests" asp-controller="Test">Saved tests</a></li>
                     }

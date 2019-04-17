@@ -3,75 +3,86 @@
 @{
     ViewData["Title"] = "AddQuestion";
 }
+<link rel="stylesheet" href="~/css/AddQuestion.css" />
 
-<h4 class="text-center text-danger">Add Question</h4>
 
-<h4>@ViewBag.Message</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<h3 class="text-center text-warning">Add Question</h3>
+
+<h6 class="text-center text-danger">@ViewBag.Message</h6>
+
+<div class="row justify-content-center">
+    <div class="col-sm-8">
 			<form asp-action="SaveQuestion">
 				<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-				<div class="form-group">
-					<label asp-for="SubjectId" class="control-label">Subject</label>
-					<select asp-for="SubjectId" class="form-control">
-						@foreach (var item in ViewBag.Subjects)
-						{
-							<option value="@item.Id">@item.Name</option>
-						}
-					</select>
-				</div>
-				<div class="form-group">
-					<label asp-for="Context" class="control-label"></label>
-					<textarea rows="3" asp-for="Context" class="form-control"></textarea>
-					<span asp-validation-for="Context" class="text-danger"></span>
-				</div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="Context" class="control-label"></label>
+                            <textarea rows="3" asp-for="Context" class="form-control border-dark"></textarea>
+                            <span asp-validation-for="Context" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="CorrectAnswer" class="control-label">Correct answer</label>
+                            <input asp-for="CorrectAnswer" class="form-control border-dark" />
+                            <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WrongAnswer1" class="control-label text-dark"></label>
+                            <input asp-for="WrongAnswer1" class="form-control border-dark" />
+                            <span asp-validation-for="WrongAnswer1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WrongAnswer2" class="control-label"></label>
+                            <input asp-for="WrongAnswer2" class="form-control border-dark" />
+                            <span asp-validation-for="WrongAnswer2" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WrongAnswer3" class="control-label"></label>
+                            <input asp-for="WrongAnswer3" class="form-control border-dark" />
+                            <span asp-validation-for="WrongAnswer3" class="text-danger"></span>
+                        </div>
 
-				<div class="form-group">
-					<label asp-for="Grade" class="control-label"></label>
-					<select asp-for="Grade" class="form-control">
-						@for (int i = 1; i <= 4; i++)
-						{
-							<option value="@i">@i</option>
-						}
-					</select>
-					<span asp-validation-for="Grade" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="Level" class="control-label"></label>
-					<select asp-for="Level" class="form-control">
-						@for (int i = 1; i <= 3; i++)
-						{
-							<option value="@i">@i</option>
-						}
-					</select>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            <label asp-for="SubjectId" class="control-label">Subject</label>
+                            <select asp-for="SubjectId" class="form-control border-dark">
+                                @foreach (var item in ViewBag.Subjects)
+                                {
+                                    <option value="@item.Id">@item.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Grade" class="control-label"></label>
+                            <select asp-for="Grade" class="form-control border-dark">
+                                @for (int i = 1; i <= 4; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Grade" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Level" class="control-label"></label>
+                            <select asp-for="Level" class="form-control border-dark">
+                                @for (int i = 1; i <= 3; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
 
-					<span asp-validation-for="Level" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="CorrectAnswer" class="control-label">Correct answer</label>
-					<input asp-for="CorrectAnswer" class="form-control" />
-					<span asp-validation-for="CorrectAnswer" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="WrongAnswer1" class="control-label"></label>
-					<input asp-for="WrongAnswer1" class="form-control" />
-					<span asp-validation-for="WrongAnswer1" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="WrongAnswer2" class="control-label"></label>
-					<input asp-for="WrongAnswer2" class="form-control" />
-					<span asp-validation-for="WrongAnswer2" class="text-danger"></span>
-				</div>
-				<div class="form-group">
-					<label asp-for="WrongAnswer3" class="control-label"></label>
-					<input asp-for="WrongAnswer3" class="form-control" />
-					<span asp-validation-for="WrongAnswer3" class="text-danger"></span>
-				</div>
+                            <span asp-validation-for="Level" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-warning" />
+                        </div>
 
-				<div class="form-group">
-					<input type="submit" value="Create" class="btn btn-default" />
-				</div>
+                    </div>
+
+
+                </div>
+				
 			</form>
     </div>
 </div>

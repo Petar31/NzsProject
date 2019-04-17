@@ -111,19 +111,7 @@ namespace WebApp.Controllers
 
 		public IActionResult GetSavedTests(string message = "")
 		{
-            IEnumerable<SavedTest> savedTests;
-            try
-            {
-                 savedTests = testService.GetSavedTests(userManager.GetUserId(User));
-             
-                return View(savedTests);
-            }
-            catch (Exception)
-            {
-
-                savedTests = null;
-            }
-
+            IEnumerable<SavedTest> savedTests = testService.GetSavedTests(userManager.GetUserId(User));
 
             ViewBag.Message = message;
             return View(savedTests);
@@ -150,6 +138,16 @@ namespace WebApp.Controllers
             return RedirectToAction("GetSavedTests", "Test", new { message = msg});
         }
 
+        public IActionResult GetQuestions()
+        {
+            ViewBag.Subjects = testService.GetSubjects(userManager.GetUserId(User));
+            return View();
+        }
+
+        public JsonResult GetQuestionsById(int subjectId, int grade)
+        {
+            return Json(testService.GetQuestionsById(subjectId, grade));
+        }
 
 
     }

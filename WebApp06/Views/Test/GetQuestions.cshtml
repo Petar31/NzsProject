@@ -1,0 +1,72 @@
+﻿<!-- include vue -->
+<script src="//unpkg.com/vue"></script>
+<!-- axios -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+
+@{
+    ViewData["Title"] = "GetQuestions";
+}
+
+<h2 class="text-center">Custom made test</h2>
+<div class="row" id="app">
+    <div class="col-sm-12">
+        <div class="row">
+            <div class="col-sm-2 form-group">
+                <h6 class="text-center">Subject</h6>
+                <select class="form-control" v-on:change="getGrades($event)" ref="subject">
+                    <option disabled selected value="0">Select subject</option>
+                    <option v-for="sub in subjects" v-bind:value="sub.id">{{sub.name}}</option>
+                </select>
+            </div>
+            <div class="col-sm-2 form-group">
+                <h6 class="text-center">Grade</h6>
+                <select class="form-control" ref="grade">
+                    <option disabled selected value="0">Select grade</option>
+                    <option v-for="grade in grades" v-bind:value="grade">{{grade}}</option>
+                </select>
+            </div>
+            <div class="col-sm-2 form-group">
+                <button class="btn btn-success" v-on:click ="findQuestions()">Find questions</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div v-for="item in questions">{{item.context}}</div>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+
+    let vue = new Vue({
+        el: "#app",
+        created() {
+            this.fetchData();
+        },
+        data: {
+            subjects: "",
+            grades: "",
+            questions: []
+                
+            
+        },
+        methods: {
+            fetchData() {
+				axios.get("/Test/GetSubjectsAsync").then(x => this.subjects = x.data);
+            },
+            getGrades(event) {
+				//document.getElementById("res").style.visibility = "hidden";
+				axios.get(`/Test/GetGrades?subjectId=${event.target.value}`).then(x => this.grades = x.data);
+            },
+            findQuestions() {
+                axios.get(`/Test/GetQuestionsById?subjectId=${this.$refs.subject.value}&grade=${this.$refs.grade.value}`).then(x => { this.questions = x.data; console.log(this.questions) });
+            }
+        }
+    })
+
+</script>
+
