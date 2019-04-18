@@ -159,7 +159,7 @@ namespace WebApp06.Models.Test
             }
             catch (Exception)
             {
-                savedTests = null;
+                savedTests = Enumerable.Empty<SavedTest>();
             }
 
             return savedTests;
@@ -229,7 +229,7 @@ namespace WebApp06.Models.Test
             catch (Exception)
             {
 
-                questions = null;
+                questions = Enumerable.Empty<Question>();
             }
             return questions;
         }

@@ -11,30 +11,83 @@
 <div class="row" id="app">
     <div class="col-sm-12">
         <div class="row">
-            <div class="col-sm-2 form-group">
-                <h6 class="text-center">Subject</h6>
-                <select class="form-control" v-on:change="getGrades($event)" ref="subject">
-                    <option disabled selected value="0">Select subject</option>
-                    <option v-for="sub in subjects" v-bind:value="sub.id">{{sub.name}}</option>
-                </select>
+            <div class="col-sm-2">
+                {{ids}}
             </div>
-            <div class="col-sm-2 form-group">
-                <h6 class="text-center">Grade</h6>
-                <select class="form-control" ref="grade">
-                    <option disabled selected value="0">Select grade</option>
-                    <option v-for="grade in grades" v-bind:value="grade">{{grade}}</option>
-                </select>
+            <div class="col-sm-2">
+                {{group}}
             </div>
-            <div class="col-sm-2 form-group">
-                <button class="btn btn-success" v-on:click ="findQuestions()">Find questions</button>
+            <div class="col-sm-2">
+                {{testName}}
             </div>
         </div>
+
         <div class="row">
-            <div class="col-sm-12">
-                <div v-for="item in questions">{{item.context}}</div>
+            <div class="col-sm-2">
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <h6 class="text-center">Subject</h6>
+                        <select class="form-control" v-on:change="getGrades($event)" ref="subject">
+                            <option disabled selected value="0">Select subject</option>
+                            <option v-for="sub in subjects" v-bind:value="sub.id">{{sub.name}}</option>
+                        </select>
+                    </div>                 
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">
+                        <h6 class="text-center">Grade</h6>
+                        <select class="form-control" ref="grade">
+                            <option disabled selected value="0">Select grade</option>
+                            <option v-for="grade in grades" v-bind:value="grade">{{grade}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 form-group">                    
+                        <button class="btn btn-success" v-on:click="findQuestions()">Find questions</button>
+                    </div>
+                </div>
             </div>
-           
+            <div class="col-sm-8" >
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row" v-for="x in 3">
+                            <div class="col-sm-12">
+                                <h6 v-if="questions.length > 0">Level {{x}} </h6>
+                                <ul class="list-group">
+                                    <li class="list-group-item" v-for="item in questions" v-if="item.level == x">
+                                        <input type="checkbox" v-bind:value="item.id" v-model="ids" />
+                                        <span>{{item.context}}</span> 
+                                        <button class="btn btn-sm btn-outline-dark" style="float:right;" v-on:click="toggle(item.id)">Answers</button><br />
+                                        <ul v-bind:id="item.id" style="display:none; ">
+                                            <li>{{item.correctAnswer}}</li>
+                                            <li>{{item.wrongAnswer1}}</li>
+                                            <li>{{item.wrongAnswer2}}</li>
+                                            <li>{{item.wrongAnswer3}}</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+
+            <div class="col-sm-2">
+                <label>Group</label>
+                <select class="form-control" v-model="group">
+                    <option disabled selected value="0">Select group</option>
+                    <option v-for="n in 4" v-bind:value="n">{{n}}</option>
+                </select>
+                <span class="text-danger">{{valMsg1}}</span><br />
+                <input type="text" class="form-control" placeholder="Insert name" v-model="testName" />
+                <span class="text-danger">{{valMsg2}}</span><br />
+                <button class="btn btn-warning" v-on:click="saveTest()">Save test</button>
+                <div class="text-danger">{{message}}</div>
+            </div>
         </div>
+    
     </div>
 </div>
 
@@ -49,9 +102,17 @@
         },
         data: {
             subjects: "",
-            grades: "",
-            questions: []
-                
+            grades: [],
+            questions: [],
+            ids: [],
+            group: 0,
+            first: [
+                "Select group"
+            ],
+            testName: "",
+            valMsg1: "",
+            valMsg2 : "",
+            message : ""    
             
         },
         methods: {
@@ -63,10 +124,31 @@
 				axios.get(`/Test/GetGrades?subjectId=${event.target.value}`).then(x => this.grades = x.data);
             },
             findQuestions() {
-                axios.get(`/Test/GetQuestionsById?subjectId=${this.$refs.subject.value}&grade=${this.$refs.grade.value}`).then(x => { this.questions = x.data; console.log(this.questions) });
-            }
+                axios.get(`/Test/GetQuestionsById?subjectId=${this.$refs.subject.value}&grade=${this.$refs.grade.value}`).then(x => { this.questions = x.data; this.ids = []; console.log(this.questions) });
+            },
+            saveTest() {
+                axios({
+					method: "post",
+					url: "/Test/SaveTest",
+                    data: {
+                        "TestName": this.testName,
+                        "Group": this.group,
+                        "Ids": this.ids
+					}
+				}).then(x => { this.message = x.data }).catch(error => this.message = error);
+            },
+            toggle(id) {
+                var ul = document.getElementById(id);
+                if (ul.style.display == "none") {
+                    ul.style.display = "block";
+                } else {
+                    ul.style.display = "none";
+                }
+             }
         }
     })
+
+ 
 
 </script>
 
