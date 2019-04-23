@@ -9,7 +9,7 @@
 	@ViewBag.Message
 </div>
 
-<div class="row">
+<div class="row" id="row1">
 	<div class="col-sm-6">
 
 		<div class="row">
@@ -40,7 +40,7 @@
                             <tr>
                                 <th>First name</th>
                                 <th>Last name</th>
-                                <th>User</th>
+                                <th>Username</th>
                                 <th>Role</th>
                                 <th></th>
                             </tr>
@@ -58,7 +58,11 @@
                                     }
                                 </td>
                                 <td>
-                                    <a asp-action="DeleteRole" asp-route-id="">Delete user</a>
+                                    @if (item.ApplicationUser.UserName != "admin")
+                                    {
+                                        <button class="btn btn-sm btn-danger" onclick="deleteUser('@item.ApplicationUser.Id', '@item.ApplicationUser.UserName')">Delete</button>
+                                    }
+
                                 </td>
                             </tr>
                             }
@@ -99,7 +103,7 @@
 			</div>
 			<div class="row">
 				<div class="col-sm-12 bg-white" id="partialDiv2">
-
+                    
 				</div>
 			</div>
 
@@ -113,22 +117,50 @@
 
 
 	
-
+<div class="modal fade" id="deleteUsermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUsermodalHeader"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>     
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form asp-action="DeleteUser">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+               
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script>
-    $("a").on("click", function () {
+    $(document).ready(function () {
+       $.get("/Role/_AddSubject", function (data) {
+			$("#partialDiv2").html(data);
+       })
+        $("#addSubjectBtn").addClass("active");
         
-			
-			var ul = this.parentElement.parentElement.getElementsByClassName("active");
-			for (var i = 0; i < ul.length; i++) {
-				ul[i].classList.remove("active");
-			}
-			
-			this.classList.add("active");
-			
-			
-    })
+     });
+
+    $("a").on("click", function () {
+
+
+        var ul = this.parentElement.parentElement.getElementsByClassName("active");
+        for (var i = 0; i < ul.length; i++) {
+            ul[i].classList.remove("active");
+        }
+
+        this.classList.add("active");
+
+
+    });
+
+   
 	
 
 	$("#getProfsBtn").on("click", function () {
@@ -165,18 +197,22 @@
 	
 
 	$("#getRolesBtn").on("click", function () {
-		console.log($("#partialDiv1").classList);
         $.get("/Role/_GetRoles", function (data) {
             $("#partialDiv1").html(data);
         })
     })
 
 	$("#getSubjectsBtn").on("click", function () {
-		console.log($("#partialDiv1").classList);
         $.get("/Role/_GetSubjects", function (data) {
             $("#partialDiv1").html(data);
         })
     })
+
+    function deleteUser(id, userName) {
+        $("#deleteUsermodalHeader").html(`Delete ${userName} ?`);
+        $("#deleteUsermodal").modal('show');
+        console.log(id);
+    }
 
 </script>
 

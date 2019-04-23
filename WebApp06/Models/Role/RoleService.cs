@@ -38,9 +38,30 @@ namespace WebApp06.Models.Role
 		public List<Professor> GetProfessors()
 		{
 
-			List<Professor> professors = context.Professors.Include(x => x.ApplicationUser).Include(x => x.Subject).ToList();
+            List<Professor> professors = context.Professors.Include(x => x.ApplicationUser).Include(x => x.Subject).ToList();
+            //List<Professor> professors = context.Professors.FromSql("Select * from Professors").ToList();
 
-			return professors;
+            return professors;
 		}
-	}
+
+        public string DeleteProf(string SubId, string UserId)
+        {
+            try
+            {
+                int subId = int.Parse(SubId);
+                Professor professor = context.Professors.Where(x => x.SubjectId == subId && x.UserId == UserId).SingleOrDefault();
+
+                context.Professors.Remove(professor);
+                context.SaveChanges();
+                return "User is no more prof for the subject";
+               
+            }
+            catch (Exception)
+            {
+
+                return "Error";
+            }
+        }
+
+    }
 }

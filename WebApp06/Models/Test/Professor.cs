@@ -11,13 +11,14 @@ namespace WebApp06.Models.Test
 
 	public class Professor
 	{
-		public int SubjectId { get; set; }
-		[Key]
+ 
+		
 		public string UserId { get; set; }
 
+        [Key]
+        public int SubjectId { get; set; }
 
-
-		[ForeignKey("SubjectId")]
+        [ForeignKey("SubjectId")]
 		public virtual Subject Subject { get; set; }
 
 		[ForeignKey("UserId")]

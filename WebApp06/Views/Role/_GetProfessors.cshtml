@@ -4,25 +4,35 @@
 <table class="table">
     <thead>
         <tr>
+            <th>First name</th>
+            <th>Last name</th>
             <th>
                 User Name
             </th>
             <th>
                 Subject
             </th>
-          
+          <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model) {
         <tr>
             <td>
+                @item.ApplicationUser.FirstName
+            </td>
+            <td>
+                @item.ApplicationUser.LastName
+            </td>
+            <td>
                 @item.ApplicationUser.UserName
             </td>
             <td>
                 @item.Subject.Name
             </td>
-            
+            <td>
+                <a class="btn btn-sm btn-danger" href="Role/DeleteProf?SubId=@item.Subject.Id&UserId=@item.UserId">X</a>
+            </td>
         </tr>
 }
     </tbody>

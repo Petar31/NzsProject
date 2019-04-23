@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebApp06.Models.Test
 {
@@ -14,5 +15,9 @@ namespace WebApp06.Models.Test
 		[Required(ErrorMessage ="Subject name is required")]
 		[StringLength(30)]
 		public string Name { get; set; }
-	}
+
+        [NotMapped]
+        [InverseProperty("Subject")]
+        public List<Professor> Professors { get; set; }
+    }
 }

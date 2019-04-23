@@ -1,5 +1,5 @@
 ﻿
-<h2 class="text-center">Add User In Role</h2>
+<h3 class="text-center">Add User In Role</h3>
 @ViewBag.Message
 
 <div class="row">
@@ -8,7 +8,7 @@
 			<option>Select User</option>
 			@foreach (var item in ViewBag.Users)
 			{
-				<option value="@item.Id">@item.UserName</option>
+				<option value="@item.Id">@item.FirstName @item.LastName @item.UserName</option>
 			}
 		</select>
 		<select name="role" class="form-control">

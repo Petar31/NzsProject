@@ -291,5 +291,13 @@ namespace WebApp06.Controllers
 			List<Professor> professors = roleService.GetProfessors();
 			return PartialView(professors);
 		}
-	}
+
+        public ActionResult DeleteProf(string SubId, string UserId)
+        {
+          
+            string msg = roleService.DeleteProf(SubId, UserId);
+            return RedirectToAction("Index", new { message = msg });
+        }
+
+    }
 }

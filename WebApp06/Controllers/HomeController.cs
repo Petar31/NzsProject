@@ -21,17 +21,14 @@ namespace WebApp06.Controllers
 		public IActionResult Index()
 		{
 			bool adminExsists = false;
-			if (dbContext.Roles.Where(x => x.Name == "admin").Count() != 0)
-			{
-				adminExsists = true;
-			}
-            if (User.IsInRole("admin"))
+
+            if (dbContext.Roles.Where(x => x.Name == "admin").Count() != 0)
             {
-                return RedirectToAction("Index", "Role");
+                adminExsists = true;
             }
 
-			//bool adminExsists = true;
-			ViewBag.AdminExsists = adminExsists;
+            //bool adminExsists = true;
+            ViewBag.AdminExsists = adminExsists;
 			return View();
 		}
 
