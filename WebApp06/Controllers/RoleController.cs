@@ -86,31 +86,37 @@ namespace WebApp06.Controllers
 			IdentityRole identityRole = dbContext.Roles.Find(role);
 			ViewBag.Users = dbContext.Users;
 			ViewBag.Roles = dbContext.Roles;
-			if (applicationUser != null && identityRole != null)
+            string msg;
+            if (applicationUser != null && identityRole != null)
 			{
 				bool res = await userManager.IsInRoleAsync(applicationUser, identityRole.Name);
 				if (res)
 				{
-                    return RedirectToAction("Index", new { message = $"User {applicationUser.UserName} is already in role {identityRole.Name}" });
-                    
-				}
+                    msg = $"User {applicationUser.UserName} is already in role {identityRole.Name}";
+                    return RedirectToAction("Index", new { message = msg });
+
+                }
 				var res1 = await userManager.AddToRoleAsync(applicationUser, identityRole.Name);
 				if (res1.Succeeded)
 				{
-					return RedirectToAction("Index", new { message = $"User {applicationUser.UserName} is added to role {identityRole.Name}" });
-				}
+					 msg = $"User {applicationUser.UserName} is added to role {identityRole.Name}";
+                    return RedirectToAction("Index", new { message = msg });
+                }
 				else
 				{
-					ViewBag.Message = "Error";
-					return View();
-				}
+					msg = "Error while adding user to role";
+                    return RedirectToAction("Index", new { message = msg });
+
+                }
 			}
 			else
 			{
-				ViewBag.Message = "Error";
-				return View();
-			}
-		}
+                msg = "User or/and role don't exsists";
+                return RedirectToAction("Index", new { message = msg });
+            }
+
+           
+        }
 
 
 
@@ -293,10 +299,17 @@ namespace WebApp06.Controllers
 		}
 
         public ActionResult DeleteProf(string SubId, string UserId)
-        {
-          
+        {        
             string msg = roleService.DeleteProf(SubId, UserId);
             return RedirectToAction("Index", new { message = msg });
+        }
+
+        public async Task<PartialViewResult> _ConfigStudents()
+        {
+            IList<ApplicationUser> students = await userManager.GetUsersInRoleAsync("studen");
+            ViewBag.Students = students;
+            return PartialView();
+            
         }
 
     }

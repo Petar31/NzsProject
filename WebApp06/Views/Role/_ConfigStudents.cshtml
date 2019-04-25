@@ -1,0 +1,29 @@
+﻿<h3 class="text-center">Student configuration</h3>
+
+<div class="row">
+    <form class="col-sm-12 form-inline justify-content-around" asp-action="">
+
+        <select name="student" class="form-control">
+            <option>Select student</option>
+            @foreach (var item in ViewBag.Students)
+            {
+                <option value="@item.Id">@item.FirstName @item.LastName @item.UserName</option>
+            }
+        </select>
+        <select name="grade" class="form-control">
+            <option>Select grade</option>
+            @for (int i = 1; i < 5; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+        <select name="group" class="form-control">
+            <option>Select group</option>
+            @for (int i = 1; i < 5; i++)
+            {
+                <option value="@i">@i</option>
+            }
+        </select>
+        <button type="submit" class="btn btn-warning">Add</button>
+    </form>
+</div>

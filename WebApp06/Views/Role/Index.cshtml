@@ -92,7 +92,7 @@
                         <a class="nav-link" id="AddSubToProfBtn" href="#">Config profs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="AddSubToProfBtn" href="#">Config students</a>
+                        <a class="nav-link" id="ConfigStudentsBtn" href="#">Config students</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="CreateRoleBtn" href="#">New role</a>
@@ -172,6 +172,12 @@
 
 	$("#AddSubToProfBtn").on("click", function () {
 		$.get("/Role/_AddSubjectToProf", function (data) {
+			$("#partialDiv2").html(data);
+		})
+    }) 
+
+    $("#ConfigStudentsBtn").on("click", function () {
+		$.get("/Role/_ConfigStudents", function (data) {
 			$("#partialDiv2").html(data);
 		})
 	})
