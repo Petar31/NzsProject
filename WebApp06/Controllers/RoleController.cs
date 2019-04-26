@@ -306,10 +306,23 @@ namespace WebApp06.Controllers
 
         public async Task<PartialViewResult> _ConfigStudents()
         {
-            IList<ApplicationUser> students = await userManager.GetUsersInRoleAsync("studen");
+            IList<ApplicationUser> students = await userManager.GetUsersInRoleAsync("student");
             ViewBag.Students = students;
             return PartialView();
             
+        }
+
+        [HttpPost]
+        public ActionResult ConfigStudents(string student, int grade, int group)
+        {
+            string msg = roleService.ConfigStudents(student, grade, group);
+            return RedirectToAction("Index", new { message = msg });
+        }
+
+        public PartialViewResult _GetStudents()
+        {
+
+            return PartialView(roleService.GetStudents());
         }
 
     }

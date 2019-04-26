@@ -6,13 +6,17 @@ using WebApp06.Models.Test;
 
 namespace WebApp06.Models.Role
 {
-	public interface IRoleService
-	{
-		string AddSubjectToProf(string prof, int subject);
+    public interface IRoleService
+    {
+        string AddSubjectToProf(string prof, int subject);
 
-		List<Professor> GetProfessors();
+        List<Professor> GetProfessors();
 
         string DeleteProf(string SubId, string UserId);
+
+        string ConfigStudents(string id, int grade, int group);
+
+        IEnumerable<Student> GetStudents();
 
     }
 }

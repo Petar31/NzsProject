@@ -31,8 +31,6 @@ namespace WebApp06
 			services.AddDbContext<ApplicationDbContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-			//services.AddDbContext<TestContext>(options =>
-			//options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()
 					.AddEntityFrameworkStores<ApplicationDbContext>()

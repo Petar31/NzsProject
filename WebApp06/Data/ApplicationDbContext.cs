@@ -31,5 +31,6 @@ namespace WebApp06.Data
 		public DbSet<Question> Questions { get; set; }
 		public DbSet<SavedTest>	SavedTests { get; set; }
 		public DbSet<Professor>	Professors { get; set; }
-	}
+        public DbSet<Student> Students { get; set; }
+    }
 }

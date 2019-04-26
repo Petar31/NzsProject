@@ -7,7 +7,7 @@
 			<option>Select prof</option>
 			@foreach (var item in ViewBag.Profs)
 			{
-				<option value="@item.Id">@item.UserName</option>
+             <option value="@item.Id">@item.FirstName @item.LastName @item.UserName</option>
 			}
 		</select>
 		<select name="subject" class="form-control">

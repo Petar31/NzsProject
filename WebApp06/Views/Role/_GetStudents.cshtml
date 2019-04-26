@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebApp06.Models.Test.Student>
+
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                  First name
+                </th>
+                <th>
+                    Last name
+                </th>
+            <th>
+                Grade
+            </th>
+            <th>
+                Group
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+              @item.ApplicationUser.FirstName
+            </td>
+            <td>
+                @item.ApplicationUser.LastName
+            </td>
+            <td>
+                @item.Grade
+            </td>
+            <td>
+                @item.Group
+            </td>
+            <td>
+               
+                <a asp-action="Delete" class="btn btn-sm btn-danger" asp-route-id="@item.UserId">X</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

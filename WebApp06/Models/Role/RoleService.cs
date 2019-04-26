@@ -9,40 +9,40 @@ using WebApp06.Models.Test;
 
 namespace WebApp06.Models.Role
 {
-	public class RoleService : IRoleService
-	{
-		private ApplicationDbContext context;
-		private UserManager<ApplicationUser> userManager;
+    public class RoleService : IRoleService
+    {
+        private ApplicationDbContext context;
+        private UserManager<ApplicationUser> userManager;
 
-		public RoleService(ApplicationDbContext _context, UserManager<ApplicationUser> _userManager)
-		{
-			context = _context;
-			userManager = _userManager;
-		}
+        public RoleService(ApplicationDbContext _context, UserManager<ApplicationUser> _userManager)
+        {
+            context = _context;
+            userManager = _userManager;
+        }
 
-		public string AddSubjectToProf(string prof, int subject)
-		{
-			string message;
-			try
-			{
-				context.Database.ExecuteSqlCommand($"Insert into Professors values ({subject}, {prof})");
-				message = "Successfully added professor";
-			}
-			catch (Exception ex)
-			{
-				message = ex.Message;
-			}
-			return message;
-		}
+        public string AddSubjectToProf(string prof, int subject)
+        {
+            string message;
+            try
+            {
+                context.Database.ExecuteSqlCommand($"Insert into Professors values ({subject}, {prof})");
+                message = "Successfully added professor";
+            }
+            catch (Exception ex)
+            {
+                message = ex.Message;
+            }
+            return message;
+        }
 
-		public List<Professor> GetProfessors()
-		{
+        public List<Professor> GetProfessors()
+        {
 
             List<Professor> professors = context.Professors.Include(x => x.ApplicationUser).Include(x => x.Subject).ToList();
-            //List<Professor> professors = context.Professors.FromSql("Select * from Professors").ToList();
+          
 
             return professors;
-		}
+        }
 
         public string DeleteProf(string SubId, string UserId)
         {
@@ -63,5 +63,34 @@ namespace WebApp06.Models.Role
             }
         }
 
+        public string ConfigStudents(string id, int grade, int group)
+        {
+            try
+            {
+
+                context.Database.ExecuteSqlCommand($"exec InsertIntoStudents @id = {id}, @grade = {grade}, @group = {group};");
+                return "Student updated";
+            }
+            catch (Exception)
+            {
+
+                return "Error";
+            }
+        }
+
+        public IEnumerable<Student> GetStudents()
+        {
+            IEnumerable<Student> students;
+            try
+            {
+                students = context.Students.Include(x=>x.ApplicationUser).ToList();
+            }
+            catch (Exception)
+            {
+                students = Enumerable.Empty<Student>();
+                
+            }
+            return students;
+        }
     }
 }
