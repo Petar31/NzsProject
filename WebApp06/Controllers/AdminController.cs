@@ -16,10 +16,10 @@ namespace WebApp06.Controllers
 	[Authorize(Roles = "admin")]
 	public class AdminController : Controller
 	{
-		private UserManager<ApplicationUser> userManager;
-		private RoleManager<IdentityRole> roleManager;
-		private ApplicationDbContext dbContext;
-		private IRoleService roleService;
+		private readonly UserManager<ApplicationUser> userManager;
+		private readonly RoleManager<IdentityRole> roleManager;
+		private readonly ApplicationDbContext dbContext;
+		private readonly IRoleService roleService;
 		
 
 
@@ -285,6 +285,7 @@ namespace WebApp06.Controllers
 			
 		}
 
+        [HttpPost]
         public ActionResult DeleteUser(string userId)
         {
             string msg = roleService.DeleteUser(userId);

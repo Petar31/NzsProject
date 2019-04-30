@@ -14,9 +14,6 @@ namespace WebApp06.Models.Test
     public class TestService : ITestService
     {
         private ApplicationDbContext context;
-        
-
-
         public TestService(ApplicationDbContext _context)
         {
             context = _context;
@@ -130,7 +127,8 @@ namespace WebApp06.Models.Test
                     Name = savedTest.TestName,
                     Date = DateTime.Now,
                     Grade = (from x in context.Questions where x.Id == savedTest.Ids[0] select x.Grade).FirstOrDefault(),
-                    ProfessorId = profId
+                    ProfessorId = profId,
+                    SubjectId = savedTest.SubjectId
                     
                 };
                 context.SavedTests.Add(test);

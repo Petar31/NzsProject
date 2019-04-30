@@ -47,6 +47,10 @@
                         <li class="nav-item"><a class="nav-link" asp-action="AddQuestion" asp-controller="Test">Add question</a></li>
                         <li class="nav-item"><a class="nav-link" asp-action="GetSavedTests" asp-controller="Test">Saved tests</a></li>
                     }
+                    @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "student"))
+                    {
+                        <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Student">Tests</a></li>
+                    }
                 }
 
             </ul>

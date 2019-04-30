@@ -22,13 +22,11 @@ namespace WebApp06.Controllers
 		{
 			bool adminExsists = false;
 
-            if (dbContext.Roles.Where(x => x.Name == "admin").Count() != 0)
-            {
-                adminExsists = true;
-            }
-
-            //bool adminExsists = true;
-            ViewBag.AdminExsists = adminExsists;
+			if (dbContext.Roles.Where(x => x.Name == "admin").Count() != 0)
+			{
+				adminExsists = true;
+			}			
+			ViewBag.AdminExsists = adminExsists;
 			return View();
 		}
 

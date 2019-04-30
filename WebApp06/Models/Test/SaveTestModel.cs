@@ -10,5 +10,7 @@ namespace WebApp06.Models.Test
         public string TestName { get; set; }
         public int Group { get; set; }
         public int[] Ids { get; set; }
-	}
+
+        public int SubjectId { get; set; }
+    }
 }

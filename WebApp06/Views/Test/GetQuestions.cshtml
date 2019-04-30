@@ -20,6 +20,10 @@
             <div class="col-sm-2">
                 {{testName}}
             </div>
+            <div class="col-sm-2">
+                {{selectedSubject}}
+            </div>
+            
         </div>
 
         <div class="row">
@@ -27,7 +31,7 @@
                 <div class="row">
                     <div class="col-sm-12 form-group">
                         <h6 class="text-center">Subject</h6>
-                        <select class="form-control" v-on:change="getGrades($event)" ref="subject">
+                        <select class="form-control" v-on:change="getGrades($event)" ref="subject" v-model="selectedSubject">
                             <option disabled selected value="0">Select subject</option>
                             <option v-for="sub in subjects" v-bind:value="sub.id">{{sub.name}}</option>
                         </select>
@@ -101,6 +105,7 @@
             this.fetchData();
         },
         data: {
+            selectedSubject : 0,
             subjects: "",
             grades: [],
             questions: [],
@@ -133,7 +138,8 @@
                     data: {
                         "TestName": this.testName,
                         "Group": this.group,
-                        "Ids": this.ids
+                        "Ids": this.ids,
+                        "SubjectId": this.selectedSubject
 					}
 				}).then(x => { this.message = x.data }).catch(error => this.message = error);
             },

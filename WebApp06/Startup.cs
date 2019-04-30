@@ -13,6 +13,7 @@ using WebApp06.Models;
 using WebApp06.Services;
 using WebApp06.Models.Test;
 using WebApp06.Models.Role;
+using WebApp06.Models.Students;
 
 namespace WebApp06
 {
@@ -42,6 +43,8 @@ namespace WebApp06
 			services.AddTransient<ITestService, TestService>();
 
 			services.AddTransient<IRoleService, RoleService>();
+
+            services.AddTransient<IStudentService, StudentService>();
 
 			services.AddMvc();
 		}

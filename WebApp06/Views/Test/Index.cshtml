@@ -1,6 +1,6 @@
 ﻿
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Index";
 }
 <!-- include vue -->
 <script src="~/lib/vue/dist/vue.min.js"></script>
@@ -15,94 +15,94 @@
 
 <div id="app">
 
-	<div class="row">
+    <div class="row">
 
-		<div class="col-sm-2 form-group">
-			<select class="form-control" id="selectSubject" ref="selectSubject" v-model="postObject.subject" v-on:change="getGrades($event)">
-				<option disabled value="">Select subject</option>
-				<option v-for="sub in subjects" v-bind:value="sub.id">{{sub.name}}</option>
-			</select>
-		</div>
+        <div class="col-sm-2 form-group">
+            <select class="form-control" id="selectSubject" ref="selectSubject" v-model="postObject.subject" v-on:change="getGrades($event)">
+                <option disabled value="">Select subject</option>
+                <option v-for="sub in subjects" v-bind:value="sub.id">{{sub.name}}</option>
+            </select>
+        </div>
 
-		<div class="col-sm-2">
-			<select class="form-control" id="selectGrade" ref="selectGrade" v-on:change="getLevels($event)" v-model="postObject.grade">
-				<option disabled selected value="">{{first[0]}}</option>
-				<option v-for="grade in grades" v-bind:value="grade">{{grade}}</option>
-			</select>
-		</div>
-		<div class="col-sm-2">
-			<select class="form-control" id="selectLevel1" v-model="postObject.level1">
-				<option disabled value="">{{first[1]}}</option>
-				<option v-for="x in levels[0]" v-bind:value="x">{{x}}</option>
-			</select>
-		</div>
-		<div class="col-sm-2">
-			<select class="form-control" id="selectLevel2" v-model="postObject.level2">
-				<option disabled value="">{{first[2]}}</option>
-				<option v-for="x in levels[1]" v-bind:value="x">{{x}}</option>
-			</select>
-		</div>
-		<div class="col-sm-2">
-			<select class="form-control" id="selectLevel3" v-model="postObject.level3">
-				<option disabled value="">{{first[3]}}</option>
-				<option v-for="x in levels[2]" v-bind:value="x" >{{x}}</option>
-			</select>
-		</div>
-		<div class="col-sm-2">
-			<input type="submit" class="btn btn-success" value="Submit" v-on:click="submitObject()" />
-		</div>
-	</div>
+        <div class="col-sm-2">
+            <select class="form-control" id="selectGrade" ref="selectGrade" v-on:change="getLevels($event)" v-model="postObject.grade">
+                <option disabled selected value="">{{first[0]}}</option>
+                <option v-for="grade in grades" v-bind:value="grade">{{grade}}</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <select class="form-control" id="selectLevel1" v-model="postObject.level1">
+                <option disabled value="">{{first[1]}}</option>
+                <option v-for="x in levels[0]" v-bind:value="x">{{x}}</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <select class="form-control" id="selectLevel2" v-model="postObject.level2">
+                <option disabled value="">{{first[2]}}</option>
+                <option v-for="x in levels[1]" v-bind:value="x">{{x}}</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <select class="form-control" id="selectLevel3" v-model="postObject.level3">
+                <option disabled value="">{{first[3]}}</option>
+                <option v-for="x in levels[2]" v-bind:value="x" >{{x}}</option>
+            </select>
+        </div>
+        <div class="col-sm-2">
+            <input type="submit" class="btn btn-success" value="Submit" v-on:click="submitObject()" />
+        </div>
+    </div>
 
     <hr />
-	<div class="row" id="res">
-	<div class="offset-2 col-sm-6">
-		<div class="card" v-if="questions.length > 0" v-for="question in questions">
-			<div class="card-header bg-primary text-light">{{question.context}}</div>
-			<div class="card-body" v-if="generateRandom() % 4 == 1">
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
-				<label>{{question.correctAnswer}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
-				<label>{{question.wrongAnswer1}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
-				<label>{{question.wrongAnswer2}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
-				<label>{{question.wrongAnswer3}}</label><br />
-			</div>
+    <div class="row" id="res">
+    <div class="offset-2 col-sm-6">
+        <div class="card" v-if="questions.length > 0" v-for="question in questions">
+            <div class="card-header bg-primary text-light">{{question.context}}</div>
+            <div class="card-body" v-if="generateRandom() % 4 == 1">
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
+                <label>{{question.correctAnswer}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
+                <label>{{question.wrongAnswer1}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
+                <label>{{question.wrongAnswer2}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
+                <label>{{question.wrongAnswer3}}</label><br />
+            </div>
 
-			<div class="card-body" v-else-if="generateRandom() % 4 == 2">
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
-				<label>{{question.wrongAnswer1}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
-				<label>{{question.correctAnswer}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
-				<label>{{question.wrongAnswer2}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
-				<label>{{question.wrongAnswer3}}</label><br />
-			</div>
+            <div class="card-body" v-else-if="generateRandom() % 4 == 2">
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
+                <label>{{question.wrongAnswer1}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
+                <label>{{question.correctAnswer}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
+                <label>{{question.wrongAnswer2}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
+                <label>{{question.wrongAnswer3}}</label><br />
+            </div>
 
-			<div class="card-body" v-else-if="generateRandom() % 4 == 3">
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
-				<label>{{question.wrongAnswer1}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
-				<label>{{question.wrongAnswer2}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
-				<label>{{question.correctAnswer}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
-				<label>{{question.wrongAnswer3}}</label><br />
-			</div>
+            <div class="card-body" v-else-if="generateRandom() % 4 == 3">
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
+                <label>{{question.wrongAnswer1}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
+                <label>{{question.wrongAnswer2}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
+                <label>{{question.correctAnswer}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
+                <label>{{question.wrongAnswer3}}</label><br />
+            </div>
 
-			<div class="card-body" v-else="">
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
-				<label>{{question.wrongAnswer1}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
-				<label>{{question.wrongAnswer2}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
-				<label>{{question.wrongAnswer3}}</label><br />
-				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
-				<label>{{question.correctAnswer}}</label><br />
-			</div>
-		</div>
-	</div>
+            <div class="card-body" v-else="">
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
+                <label>{{question.wrongAnswer1}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
+                <label>{{question.wrongAnswer2}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
+                <label>{{question.wrongAnswer3}}</label><br />
+                <input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
+                <label>{{question.correctAnswer}}</label><br />
+            </div>
+        </div>
+    </div>
 
     <div class="offset-2 col-sm-2">
         <label>Group</label>
@@ -116,8 +116,8 @@
         <button class="btn btn-warning" v-on:click="saveTest()">Save test</button>
         <div class="text-danger">{{message}}</div>
     </div>
-		
-	</div>
+        
+    </div>
 
 </div>
 
@@ -125,75 +125,75 @@
 
 <script>
 
-	let vue = new Vue({
-		el: "#app",
-		created() {
-			this.fetchData();
-		},
+    let vue = new Vue({
+        el: "#app",
+        created() {
+            this.fetchData();
+        },
         data: {
             group : '',
-			subjects: [],
-			grades: [],
-			levels: [],
-			first: [
-				'Select grade',
-				'Select level 1',
-				'Select level 2',
+            subjects: [],
+            grades: [],
+            levels: [],
+            first: [
+                'Select grade',
+                'Select level 1',
+                'Select level 2',
                 'Select level 3',
                 'Select group'
 
-			],
-			postObject: {
-				subject: '',
-				grade: '',
-				level1: '',
-				level2: '',
-				level3: ''
-			},
-			questions: '',
-			testIds: [],
+            ],
+            postObject: {
+                subject: '',
+                grade: '',
+                level1: '',
+                level2: '',
+                level3: ''
+            },
+            questions: '',
+            testIds: [],
             message: '',
             testName: "",
             valMsg1: "",
             valMsg2 : ""
 
 
-		},
-		methods: {
-			fetchData() {
-				axios.get("/Test/GetSubjectsAsync").then(x => this.subjects = x.data);
-			},
-			getGrades(event) {
-				//document.getElementById("res").style.visibility = "hidden";
-				axios.get(`/Test/GetGrades?subjectId=${event.target.value}`).then(x => this.grades = x.data);
-			},
-			getLevels(event) {
-				//document.getElementById("res").style.visibility = "hidden";
-				axios.get(`/Test/GetLevels?grade=${event.target.value}&subjectId=${this.$refs.selectSubject.value}`).then(x => this.levels = x.data);
-			},
+        },
+        methods: {
+            fetchData() {
+                axios.get("/Test/GetSubjectsAsync").then(x => this.subjects = x.data);
+            },
+            getGrades(event) {
+                //document.getElementById("res").style.visibility = "hidden";
+                axios.get(`/Test/GetGrades?subjectId=${event.target.value}`).then(x => this.grades = x.data);
+            },
+            getLevels(event) {
+                //document.getElementById("res").style.visibility = "hidden";
+                axios.get(`/Test/GetLevels?grade=${event.target.value}&subjectId=${this.$refs.selectSubject.value}`).then(x => this.levels = x.data);
+            },
 
-			generateRandom() {
-				var rnd = Math.ceil(Math.random() * 4);
-				return rnd;
-			},
-			submitObject() {
-				axios({
-					method: "post",
-					url: "/Test/GenerateTest",
-					data: {
-						"Subject": this.postObject.subject,
-						"Grade": this.postObject.grade,
-						"Level1": this.postObject.level1,
-						"Level2": this.postObject.level2,
-						"Level3": this.postObject.level3,
+            generateRandom() {
+                var rnd = Math.ceil(Math.random() * 4);
+                return rnd;
+            },
+            submitObject() {
+                axios({
+                    method: "post",
+                    url: "/Test/GenerateTest",
+                    data: {
+                        "Subject": this.postObject.subject,
+                        "Grade": this.postObject.grade,
+                        "Level1": this.postObject.level1,
+                        "Level2": this.postObject.level2,
+                        "Level3": this.postObject.level3,
 
                     }
                 }).then(x => { this.questions = x.data; document.getElementById("res").style.visibility = "visible"; this.message = ""; this.testIds = []; }).catch(error => this.questions = error);
-			},
+            },
 
-			saveTest() {
-				for (var i in this.questions) {
-					this.testIds.push(this.questions[i].id);
+            saveTest() {
+                for (var i in this.questions) {
+                    this.testIds.push(this.questions[i].id);
 
                 }
                 if (this.group == "" || this.testName == "") {
@@ -212,23 +212,24 @@
                     return false;
                 }
                 
-				console.log(this.testIds);
-				axios({
-					method: "post",
-					url: "/Test/SaveTest",
+                console.log(this.testIds);
+                axios({
+                    method: "post",
+                    url: "/Test/SaveTest",
                     data: {
                         "TestName": this.testName,
                         "Group": this.group,
-						"Ids": this.testIds
-					}
-				}).then(x => { this.message = x.data }).catch(error => this.message = error);
-			}
-		}
+                        "Ids": this.testIds,
+                        "SubjectId": this.postObject.subject
+                    }
+                }).then(x => { this.message = x.data }).catch(error => this.message = error);
+            }
+        }
 
-	})
+    })
 
 
-		
+        
 
 
 
