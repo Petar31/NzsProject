@@ -92,5 +92,26 @@ namespace WebApp06.Models.Role
             }
             return students;
         }
+
+        public string DeleteUser(string userId)
+        {
+            try
+            {
+                int x = context.Database.ExecuteSqlCommand($"Delete from AspNetUsers where Id = {userId}");
+                if (x != 0)
+                {
+                    return "User deleted";
+                }
+                else
+                {
+                    return "Error";
+                }
+            }
+            catch (Exception)
+            {
+
+                return "Error";
+            }
+        }
     }
 }

@@ -14,7 +14,7 @@ using WebApp06.Models.Role;
 namespace WebApp06.Controllers
 {
 	[Authorize(Roles = "admin")]
-	public class RoleController : Controller
+	public class AdminController : Controller
 	{
 		private UserManager<ApplicationUser> userManager;
 		private RoleManager<IdentityRole> roleManager;
@@ -23,7 +23,7 @@ namespace WebApp06.Controllers
 		
 
 
-		public RoleController(UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole> _roleManager, ApplicationDbContext _context, IRoleService _roleService)
+		public AdminController(UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole> _roleManager, ApplicationDbContext _context, IRoleService _roleService)
 		{
 			userManager = _userManager;
 			roleManager = _roleManager;
@@ -285,7 +285,14 @@ namespace WebApp06.Controllers
 			
 		}
 
-		public PartialViewResult _GetSubjects()
+        public ActionResult DeleteUser(string userId)
+        {
+            string msg = roleService.DeleteUser(userId);
+            return RedirectToAction("Index", new { message = msg });
+        }
+
+
+        public PartialViewResult _GetSubjects()
         {
             List<Subject> subjects = dbContext.Subjects.ToList();
             return PartialView(subjects);

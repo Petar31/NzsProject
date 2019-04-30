@@ -3,9 +3,11 @@
 	ViewData["Title"] = "Index";
 }
 <!-- include vue -->
-<script src="//unpkg.com/vue"></script>
+<script src="~/lib/vue/dist/vue.min.js"></script>
 <!-- axios -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js"></script>
+<script src="~/lib/axios/axios.min.js"></script>
+
+<link rel="stylesheet" href="~/css/testIndex.css" />
 
 <div class="row">
     <h3 class="text-center text-warning">@ViewBag.Name</h3>
@@ -53,9 +55,9 @@
 
     <hr />
 	<div class="row" id="res">
-	<div class="col-sm-10">
+	<div class="offset-2 col-sm-6">
 		<div class="card" v-if="questions.length > 0" v-for="question in questions">
-			<div class="card-header">{{question.context}}</div>
+			<div class="card-header bg-primary text-light">{{question.context}}</div>
 			<div class="card-body" v-if="generateRandom() % 4 == 1">
 				<input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
 				<label>{{question.correctAnswer}}</label><br />
@@ -102,7 +104,7 @@
 		</div>
 	</div>
 
-    <div class="col-sm-2">
+    <div class="offset-2 col-sm-2">
         <label>Group</label>
         <select class="form-control" v-model="group">
             <option disabled value="">{{first[4]}}</option>
@@ -162,11 +164,11 @@
 				axios.get("/Test/GetSubjectsAsync").then(x => this.subjects = x.data);
 			},
 			getGrades(event) {
-				document.getElementById("res").style.visibility = "hidden";
+				//document.getElementById("res").style.visibility = "hidden";
 				axios.get(`/Test/GetGrades?subjectId=${event.target.value}`).then(x => this.grades = x.data);
 			},
 			getLevels(event) {
-				document.getElementById("res").style.visibility = "hidden";
+				//document.getElementById("res").style.visibility = "hidden";
 				axios.get(`/Test/GetLevels?grade=${event.target.value}&subjectId=${this.$refs.selectSubject.value}`).then(x => this.levels = x.data);
 			},
 

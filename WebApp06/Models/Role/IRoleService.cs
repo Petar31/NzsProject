@@ -18,5 +18,7 @@ namespace WebApp06.Models.Role
 
         IEnumerable<Student> GetStudents();
 
+        string DeleteUser(string userId);
+
     }
 }

@@ -17,7 +17,7 @@
             
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="/Role/Index">Users</a>
+                    <a class="nav-link active" href="/Admin/Index">Users</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" id="getRolesBtn" href="#">Roles</a>
@@ -133,6 +133,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <form asp-action="DeleteUser">
+                   <input type="hidden" id="deleteId" name="userId" />
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
                
@@ -144,7 +145,7 @@
 
 <script>
     $(document).ready(function () {
-       $.get("/Role/_AddSubject", function (data) {
+       $.get("/Admin/_AddSubject", function (data) {
             $("#partialDiv2").html(data);
        })
         $("#addSubjectBtn").addClass("active");
@@ -168,13 +169,13 @@
     
 
     $("#getProfsBtn").on("click", function () {
-        $.get("/Role/_GetProfessors", function (data) {
+        $.get("/Admin/_GetProfessors", function (data) {
             $("#partialDiv1").html(data);
         })
     })
 
        $("#getStudentsBtn").on("click", function () {
-        $.get("/Role/_GetStudents", function (data) {
+        $.get("/Admin/_GetStudents", function (data) {
             $("#partialDiv1").html(data);
         })
     })
@@ -182,31 +183,31 @@
     
 
     $("#AddSubToProfBtn").on("click", function () {
-        $.get("/Role/_AddSubjectToProf", function (data) {
+        $.get("/Admin/_AddSubjectToProf", function (data) {
             $("#partialDiv2").html(data);
         })
     }) 
 
     $("#ConfigStudentsBtn").on("click", function () {
-        $.get("/Role/_ConfigStudents", function (data) {
+        $.get("/Admin/_ConfigStudents", function (data) {
             $("#partialDiv2").html(data);
         })
     })
 
     $("#addSubjectBtn").on("click", function () {
-        $.get("/Role/_AddSubject", function (data) {
+        $.get("/Admin/_AddSubject", function (data) {
             $("#partialDiv2").html(data);
         })
     })
 
     $("#AddUserInRoleBtn").on("click", function () {
-        $.get("/Role/_AddUserInRole", function (data) {
+        $.get("/Admin/_AddUserInRole", function (data) {
             $("#partialDiv2").html(data);
         })
     })
 
     $("#CreateRoleBtn").on("click", function () {
-        $.get("/Role/_CreateRole", function (data) {
+        $.get("/Admin/_CreateRole", function (data) {
             $("#partialDiv2").html(data);
         })
     })
@@ -214,13 +215,13 @@
     
 
     $("#getRolesBtn").on("click", function () {
-        $.get("/Role/_GetRoles", function (data) {
+        $.get("/Admin/_GetRoles", function (data) {
             $("#partialDiv1").html(data);
         })
     })
 
     $("#getSubjectsBtn").on("click", function () {
-        $.get("/Role/_GetSubjects", function (data) {
+        $.get("/Admin/_GetSubjects", function (data) {
             $("#partialDiv1").html(data);
         })
     })
@@ -228,8 +229,13 @@
     function deleteUser(id, userName) {
         $("#deleteUsermodalHeader").html(`Delete ${userName} ?`);
         $("#deleteUsermodal").modal('show');
-        console.log(id);
-    }
+        $("#deleteId").val(id);
+        }
+
+    var message = document.getElementById("message");
+    setInterval(function () {
+        message.textContent = "";
+    }, 3000)
 
 </script>
 

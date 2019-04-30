@@ -117,7 +117,6 @@ namespace WebApp06.Models.Test
             string str = "";
             try
             {
-                
 
                 for (int i = 0; i < savedTest.Ids.Length; i++)
                 {

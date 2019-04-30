@@ -11,6 +11,16 @@
       "provider": "unpkg",
       "library": "jquery@3.3.1",
       "destination": "wwwroot/lib/jquery"
+    },
+    {
+      "provider": "unpkg",
+      "library": "vue@2.6.10",
+      "destination": "wwwroot/lib/vue"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "axios@0.18.0",
+      "destination": "wwwroot/lib/axios"
     }
 	]
 }

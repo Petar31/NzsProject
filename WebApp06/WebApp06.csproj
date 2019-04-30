@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <UserSecretsId>aspnet-WebApp06-56221DDC-1B37-4112-BC12-B544C3549699</UserSecretsId>
+    <TypeScriptToolsVersion>3.3</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
