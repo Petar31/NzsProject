@@ -35,6 +35,42 @@ namespace WebApp06.Models.Students
             return savedTests;
         }
 
-       
+        public SolvedTestViewModel Result(Dictionary<string, string> SubmitedTest)
+        {
+            SolvedTestViewModel solvedTestViewModel = new SolvedTestViewModel();
+            try
+            {
+                solvedTestViewModel.Result = 0;
+                solvedTestViewModel.SolvedTest = new Dictionary<string, string>();
+                foreach (var item in SubmitedTest)
+                {
+
+                    bool boolId = int.TryParse(item.Key, out int id);
+                    if (boolId)
+                    {
+                        Question question = context.Questions.FromSql($"Select * from Questions where Id = {id}").FirstOrDefault();
+                        if (item.Value == question.CorrectAnswer)
+                        {
+                            solvedTestViewModel.Result++;
+
+                            solvedTestViewModel.SolvedTest.Add(question.Context, "true");
+                        }
+                        else
+                        {
+                            solvedTestViewModel.SolvedTest.Add(question.Context, "false");
+                        }
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+         
+            return solvedTestViewModel;
+        }
     }
 }

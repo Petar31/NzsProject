@@ -10,6 +10,6 @@ namespace WebApp06.Models.Students
     {
         IEnumerable<SavedTest> GetSavedTests(string userId);
 
-      
+        SolvedTestViewModel Result(Dictionary<string, string> SubmitedTest);
     }
 }

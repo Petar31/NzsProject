@@ -66,8 +66,8 @@
                                         <ul v-bind:id="item.id" style="display:none; ">
                                             <li>{{item.correctAnswer}}</li>
                                             <li>{{item.wrongAnswer1}}</li>
-                                            <li>{{item.wrongAnswer2}}</li>
-                                            <li>{{item.wrongAnswer3}}</li>
+                                            <li v-if="item.wrongAnswer2 != null">{{item.wrongAnswer2}}</li>
+                                            <li v-if="item.wrongAnswer3 != null">{{item.wrongAnswer3}}</li>
                                         </ul>
                                     </li>
                                 </ul>

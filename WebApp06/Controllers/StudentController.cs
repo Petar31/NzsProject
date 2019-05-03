@@ -32,5 +32,12 @@ namespace WebApp06.Controllers
             List<Question> questions = testService.GetQuestions(id);
             return View(questions);
         }
+
+        public IActionResult SubmitTest(Dictionary<string, string> keyValuePairs)
+        {
+            SolvedTestViewModel solvedTestViewModel = studentService.Result(keyValuePairs);
+
+            return View(solvedTestViewModel);
+        }
     }
 }
