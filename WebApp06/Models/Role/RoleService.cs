@@ -35,13 +35,26 @@ namespace WebApp06.Models.Role
             return message;
         }
 
-        public List<Professor> GetProfessors()
+        public List<ProffesorViewModel> GetProfessors()
         {
+            List<ProffesorViewModel> proffesorViewModels = new List<ProffesorViewModel>();
+            List<Professor> professors = context.Professors.FromSql("Select * from [Professors]").ToList();
+            foreach (var item in professors)
+            {
+                ProffesorViewModel proffesorViewModel = new ProffesorViewModel();
+                ApplicationUser user = context.Users.Find(item.UserId);
+                proffesorViewModel.FirstName = user.FirstName;
+                proffesorViewModel.LastName = user.LastName;
+                proffesorViewModel.UserName = user.UserName;
+                proffesorViewModel.Subject = context.Subjects.Find(item.SubjectId).Name;
+                proffesorViewModel.SubjectId = item.SubjectId;
+                proffesorViewModel.UserId = item.UserId;
 
-            List<Professor> professors = context.Professors.Include(x => x.ApplicationUser).Include(x => x.Subject).ToList();
+                proffesorViewModels.Add(proffesorViewModel);
+            }
           
 
-            return professors;
+            return proffesorViewModels;
         }
 
         public string DeleteProf(string SubId, string UserId)

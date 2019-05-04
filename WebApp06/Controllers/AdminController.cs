@@ -302,7 +302,7 @@ namespace WebApp06.Controllers
 
 		public PartialViewResult _GetProfessors()
 		{
-			List<Professor> professors = roleService.GetProfessors();
+			List<ProffesorViewModel> professors = roleService.GetProfessors();
 			return PartialView(professors);
 		}
 

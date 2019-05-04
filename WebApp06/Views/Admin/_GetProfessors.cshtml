@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebApp06.Models.Test.Professor>
+﻿@model IEnumerable<WebApp06.Models.Role.ProffesorViewModel>
 
 
 <table class="table">
@@ -19,19 +19,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @item.ApplicationUser.FirstName
+                @item.FirstName
             </td>
             <td>
-                @item.ApplicationUser.LastName
+                @item.LastName
             </td>
             <td>
-                @item.ApplicationUser.UserName
+                @item.UserName
             </td>
             <td>
-                @item.Subject.Name
+                @item.Subject
             </td>
             <td>
-                <a class="btn btn-sm btn-danger" href="Role/DeleteProf?SubId=@item.Subject.Id&UserId=@item.UserId">X</a>
+                <a class="btn btn-sm btn-danger" href="Admin/DeleteProf?SubId=@item.SubjectId&UserId=@item.UserId">X</a>
             </td>
         </tr>
 }

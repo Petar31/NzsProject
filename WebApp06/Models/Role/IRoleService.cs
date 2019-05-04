@@ -10,7 +10,7 @@ namespace WebApp06.Models.Role
     {
         string AddSubjectToProf(string prof, int subject);
 
-        List<Professor> GetProfessors();
+        List<ProffesorViewModel> GetProfessors();
 
         string DeleteProf(string SubId, string UserId);
 

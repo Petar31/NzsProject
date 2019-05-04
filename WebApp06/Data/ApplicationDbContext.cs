@@ -24,8 +24,19 @@ namespace WebApp06.Data
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
-          
-		}
+            builder.Entity<Professor>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.SubjectId });
+
+                entity.HasOne(d => d.ApplicationUser)
+                    .WithMany(p => p.Professors)
+                    .HasForeignKey(d => d.UserId)
+                    .HasConstraintName("FK_Professors_ApplicationUser_UserId");
+            });
+
+
+
+        }
 
 		public DbSet<Subject> Subjects { get; set; }
 		public DbSet<Question> Questions { get; set; }

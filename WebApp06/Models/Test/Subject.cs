@@ -9,6 +9,11 @@ namespace WebApp06.Models.Test
 {
 	public class Subject
 	{
+        public Subject()
+        {
+            this.Professors = new HashSet<Professor>();
+        }
+
 		[Key]
 		public int Id { get; set; }
 
@@ -16,8 +21,8 @@ namespace WebApp06.Models.Test
 		[StringLength(30)]
 		public string Name { get; set; }
 
-        [NotMapped]
+
         [InverseProperty("Subject")]
-        public List<Professor> Professors { get; set; }
+        public virtual ICollection<Professor> Professors { get; set; }
     }
 }

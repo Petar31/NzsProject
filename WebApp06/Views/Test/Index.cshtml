@@ -57,50 +57,21 @@
     <div class="row" id="res">
     <div class="offset-2 col-sm-6">
         <div class="card" v-if="questions.length > 0" v-for="question in questions">
-            <div class="card-header bg-primary text-light">{{question.context}}</div>
-            <div class="card-body" v-if="generateRandom() % 4 == 1">
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
-                <label>{{question.correctAnswer}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
-                <label>{{question.wrongAnswer1}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
-                <label>{{question.wrongAnswer2}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
-                <label>{{question.wrongAnswer3}}</label><br />
+            <div class="card-header bg-primary text-light d-flex justify-content-between">
+                <span style="width:80%;">{{question.context}}</span>
+                <button class="btn btn-sm btn-outline-light" style="width:15%; height:30px;"  v-on:click="toggle(question.id)">Answers</button>
+            </div>
+            <div class="card-body" v-bind:id="question.id" style="display:none;">
+                <ul >
+                    <li>{{question.correctAnswer}}</li>
+                    <li>{{question.wrongAnswer1}}</li>
+                    <li>{{question.wrongAnswer2}}</li>
+                    <li>{{question.wrongAnswer3}}</li>
+                </ul>
+                
             </div>
 
-            <div class="card-body" v-else-if="generateRandom() % 4 == 2">
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
-                <label>{{question.wrongAnswer1}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
-                <label>{{question.correctAnswer}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
-                <label>{{question.wrongAnswer2}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
-                <label>{{question.wrongAnswer3}}</label><br />
-            </div>
-
-            <div class="card-body" v-else-if="generateRandom() % 4 == 3">
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
-                <label>{{question.wrongAnswer1}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
-                <label>{{question.wrongAnswer2}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
-                <label>{{question.correctAnswer}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
-                <label>{{question.wrongAnswer3}}</label><br />
-            </div>
-
-            <div class="card-body" v-else="">
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer1" />
-                <label>{{question.wrongAnswer1}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer2" />
-                <label>{{question.wrongAnswer2}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.wrongAnswer3" />
-                <label>{{question.wrongAnswer3}}</label><br />
-                <input type="radio" v-bind:name="question.id" v-bind:value="question.correctAnswer" />
-                <label>{{question.correctAnswer}}</label><br />
-            </div>
+           
         </div>
     </div>
 
@@ -170,12 +141,7 @@
             getLevels(event) {
                 //document.getElementById("res").style.visibility = "hidden";
                 axios.get(`/Test/GetLevels?grade=${event.target.value}&subjectId=${this.$refs.selectSubject.value}`).then(x => this.levels = x.data);
-            },
-
-            generateRandom() {
-                var rnd = Math.ceil(Math.random() * 4);
-                return rnd;
-            },
+            },          
             submitObject() {
                 axios({
                     method: "post",
@@ -223,7 +189,16 @@
                         "SubjectId": this.postObject.subject
                     }
                 }).then(x => { this.message = x.data }).catch(error => this.message = error);
-            }
+            },
+
+            toggle(id) {
+                var ul = document.getElementById(id);
+                if (ul.style.display == "none") {
+                    ul.style.display = "block";
+                } else {
+                    ul.style.display = "none";
+                }
+             }
         }
 
     })
