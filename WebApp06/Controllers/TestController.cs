@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApp06.Models;
 using WebApp06.Models.Test;
 using Newtonsoft.Json;
+using WebApp06.Models.Students;
 
 namespace WebApp.Controllers
 {
@@ -126,6 +127,8 @@ namespace WebApp.Controllers
             ViewBag.Date = date;
             ViewBag.Grade = grade;
             ViewBag.Group = group;
+            IEnumerable<TestResult> testResults = testService.GetTestResults(id);
+            ViewBag.TestResults =  testResults;
 
             return View(testService.GetQuestions(id));
         }
@@ -148,6 +151,8 @@ namespace WebApp.Controllers
         {
             return Json(testService.GetQuestionsById(subjectId, grade));
         }
+
+       
 
 
     }

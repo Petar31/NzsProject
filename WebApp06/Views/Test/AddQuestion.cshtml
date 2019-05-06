@@ -17,34 +17,6 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
-                            <label asp-for="Context" class="control-label"></label>
-                            <textarea rows="3" asp-for="Context" class="form-control border-dark"></textarea>
-                            <span asp-validation-for="Context" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="CorrectAnswer" class="control-label">Correct answer</label>
-                            <input asp-for="CorrectAnswer" class="form-control border-dark" />
-                            <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WrongAnswer1" class="control-label text-dark"></label>
-                            <input asp-for="WrongAnswer1" class="form-control border-dark" />
-                            <span asp-validation-for="WrongAnswer1" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WrongAnswer2" class="control-label"></label>
-                            <input asp-for="WrongAnswer2" class="form-control border-dark" />
-                            <span asp-validation-for="WrongAnswer2" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="WrongAnswer3" class="control-label"></label>
-                            <input asp-for="WrongAnswer3" class="form-control border-dark" />
-                            <span asp-validation-for="WrongAnswer3" class="text-danger"></span>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-group">
                             <label asp-for="SubjectId" class="control-label">Subject</label>
                             <select asp-for="SubjectId" class="form-control border-dark">
                                 @foreach (var item in ViewBag.Subjects)
@@ -75,10 +47,41 @@
                             <span asp-validation-for="Level" class="text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for="Context" class="control-label"></label>
+                            <textarea rows="3" asp-for="Context" class="form-control border-dark"></textarea>
+                            <span asp-validation-for="Context" class="text-danger"></span>
+                        </div>
+                       
+
+                    </div>
+                    <div class="col-sm-6">
+
+                        <div class="form-group">
+                            <label asp-for="CorrectAnswer" class="control-label">Correct answer</label>
+                            <input asp-for="CorrectAnswer" class="form-control border-dark" />
+                            <span asp-validation-for="CorrectAnswer" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WrongAnswer1" class="control-label text-dark"></label>
+                            <input asp-for="WrongAnswer1" class="form-control border-dark" />
+                            <span asp-validation-for="WrongAnswer1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WrongAnswer2" class="control-label"></label>
+                            <input asp-for="WrongAnswer2" class="form-control border-dark" />
+                            <span asp-validation-for="WrongAnswer2" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="WrongAnswer3" class="control-label"></label>
+                            <input asp-for="WrongAnswer3" class="form-control border-dark" />
+                            <span asp-validation-for="WrongAnswer3" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-warning" />
                         </div>
 
                     </div>
+
 
 
                 </div>

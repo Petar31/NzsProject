@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using WebApp06.Models.Test;
 using WebApp06.Data;
+using WebApp06.Models.Students;
 
 namespace WebApp06.Models.Test
 {
@@ -229,6 +230,21 @@ namespace WebApp06.Models.Test
                 questions = Enumerable.Empty<Question>();
             }
             return questions;
+        }
+
+        public IEnumerable<TestResult> GetTestResults(int testId)
+        {
+            IEnumerable<TestResult> testResults;
+            try
+            {
+                testResults = (from tr in context.TestResults where tr.TestId == testId select tr).Include(x=>x.ApplicationUser);
+            }
+            catch (Exception)
+            {
+
+                testResults = Enumerable.Empty<TestResult>();
+            }
+            return testResults;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp06.Models.Students;
 
 namespace WebApp06.Models.Test
 {
@@ -30,6 +31,8 @@ namespace WebApp06.Models.Test
         string DeleteTest(int id);
 
         IEnumerable<Question> GetQuestionsById(int subjectId, int grade);
+
+        IEnumerable<TestResult> GetTestResults(int testId);
 
 
 

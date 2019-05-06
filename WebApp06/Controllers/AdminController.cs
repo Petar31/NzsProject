@@ -54,11 +54,7 @@ namespace WebApp06.Controllers
 		}
 
 
-		public PartialViewResult _CreateRole()
-		{
-			return PartialView();
-		}
-
+		
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> CreateRole(IdentityRole role)

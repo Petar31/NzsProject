@@ -22,8 +22,11 @@ namespace WebApp06.Models.Students
             try
             {
                 Student student = context.Students.FromSql($"Select * from Students where UserId = {userId}").FirstOrDefault();
-                //savedTests = context.SavedTests.FromSql($"Select * from SavedTests where [Grade] = {student.Grade} and [Group] = {student.Group}").ToList();
-                savedTests = context.SavedTests.Include(x => x.Subject).Where(y => y.Grade == student.Grade && y.Group == student.Group).ToList();
+
+                //savedTests = context.SavedTests.Include(x => x.Subject).Where(y => y.Grade == student.Grade && y.Group == student.Group).ToList();
+
+                savedTests = context.SavedTests.FromSql($"select * from SavedTests where Id not in (select [TestId] from TestResults where [StudentId] = {userId}) and [Group] = {student.Group} and [Grade] = {student.Grade} ").Include(x=>x.Subject).ToList();
+
 
             }
             catch (Exception)

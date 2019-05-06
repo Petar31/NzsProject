@@ -98,9 +98,7 @@
                     <li class="nav-item">
                         <a class="nav-link" id="ConfigStudentsBtn" href="#">Config students</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="CreateRoleBtn" href="#">New role</a>
-                    </li>
+                 
 
 
                 </ul>
@@ -206,11 +204,7 @@
         })
     })
 
-    $("#CreateRoleBtn").on("click", function () {
-        $.get("/Admin/_CreateRole", function (data) {
-            $("#partialDiv2").html(data);
-        })
-    })
+  
 
     
 

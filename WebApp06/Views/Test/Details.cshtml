@@ -55,6 +55,31 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-6"></div>
+        <div class="col-sm-6">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Student first name</th>
+                        <th>Student last name</th>
+                        <th>Result</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.TestResults)
+                    {
+                    <tr>
+                        <td>
+                            @item.ApplicationUser.FirstName
+                        </td>
+                        <td>
+                            @item.ApplicationUser.LastName
+                        </td>
+                        <td>@item.Result</td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
     </div>
 
