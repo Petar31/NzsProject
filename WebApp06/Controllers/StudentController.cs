@@ -30,14 +30,24 @@ namespace WebApp06.Controllers
         public IActionResult ShowTest(int id)
         {
             List<Question> questions = testService.GetQuestions(id);
+            ViewBag.TestId = id;
+            string msg = studentService.SaveResult(userManager.GetUserId(User), id, 0);
+            ViewBag.Message = msg;
             return View(questions);
         }
 
-        public IActionResult SubmitTest(Dictionary<string, string> keyValuePairs)
+        public IActionResult SubmitTest(Dictionary<string, string> keyValuePairs, int testId)
         {
             SolvedTestViewModel solvedTestViewModel = studentService.Result(keyValuePairs);
-
+            string msg = studentService.SaveResult(userManager.GetUserId(User), testId, solvedTestViewModel.Result );
+            ViewBag.Message = msg;
             return View(solvedTestViewModel);
+        }
+
+        public PartialViewResult _GetTestResults()
+        {
+            List<TestResultViewModel> tests = studentService.GetTestResults(userManager.GetUserId(User));
+            return PartialView(tests);
         }
     }
 }

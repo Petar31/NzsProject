@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WebApp06.Models;
+using WebApp06.Models.Students;
 using WebApp06.Models.Test;
 
 namespace WebApp06.Data
@@ -43,5 +44,7 @@ namespace WebApp06.Data
 		public DbSet<SavedTest>	SavedTests { get; set; }
 		public DbSet<Professor>	Professors { get; set; }
         public DbSet<Student> Students { get; set; }
+
+        public DbSet<TestResult> TestResults { get; set; }
     }
 }

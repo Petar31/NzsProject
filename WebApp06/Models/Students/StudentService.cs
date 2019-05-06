@@ -35,6 +35,21 @@ namespace WebApp06.Models.Students
             return savedTests;
         }
 
+        public List<TestResultViewModel> GetTestResults(string userId)
+        {
+            List<TestResultViewModel> tests;
+            try
+            {
+                tests = (from s in context.Subjects join st in context.SavedTests on s.Id equals st.SubjectId join tr in context.TestResults on st.Id equals tr.TestId where tr.StudentId == userId select new TestResultViewModel { SubjectName = s.Name, TestName = st.Name, TestResult = tr.Result, DateTime = tr.DateTime }).ToList();
+            }
+            catch (Exception)
+            {
+
+                tests = new List<TestResultViewModel>();
+            }
+            return tests;
+        }
+
         public SolvedTestViewModel Result(Dictionary<string, string> SubmitedTest)
         {
             SolvedTestViewModel solvedTestViewModel = new SolvedTestViewModel();
@@ -59,9 +74,12 @@ namespace WebApp06.Models.Students
                         {
                             solvedTestViewModel.SolvedTest.Add(question.Context, "false");
                         }
+                        
                     }
 
                 }
+                int queNum = int.Parse(SubmitedTest.Where(x => x.Key == "queNum").First().Value);
+                solvedTestViewModel.Result = Math.Round((solvedTestViewModel.Result / queNum)*100, 2);
             }
             catch (Exception)
             {
@@ -71,6 +89,41 @@ namespace WebApp06.Models.Students
            
          
             return solvedTestViewModel;
+        }
+
+        public string SaveResult(string studentId, int testId, double result)
+        {
+            try
+            {
+
+                TestResult savedTest = context.TestResults.FromSql($"Select * from TestResults where StudentId = {studentId} and TestId = {testId}").FirstOrDefault();
+                int save = 0;
+                if (savedTest == null)
+                {
+                    save = context.Database.ExecuteSqlCommand($"insert into TestResults(StudentId, Result, TestId) values({studentId}, {result}, {testId})");
+                   
+                }
+                else
+                {
+                    save = context.Database.ExecuteSqlCommand($"update TestResults set Result = {result} where StudentId = {studentId} and TestId = {testId}");
+                }
+
+                if (save == 0)
+                {
+                    return "Error";
+                }
+                else
+                {
+                    return "Test result saved";
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                return "Error";
+            }
         }
     }
 }

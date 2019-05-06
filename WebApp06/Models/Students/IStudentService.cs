@@ -11,5 +11,9 @@ namespace WebApp06.Models.Students
         IEnumerable<SavedTest> GetSavedTests(string userId);
 
         SolvedTestViewModel Result(Dictionary<string, string> SubmitedTest);
+
+        string SaveResult(string studentId, int testId, double result);
+
+        List<TestResultViewModel> GetTestResults(string userId);
     }
 }

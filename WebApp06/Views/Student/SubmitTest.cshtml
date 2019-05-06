@@ -4,8 +4,8 @@
 }
 
     <h2>Test result</h2>
-
-<table>
+    <h6 class="text-center text-danger" id="messageH6">@ViewBag.Message</h6>
+<table class="table table-bordered table-hover">
     @foreach (var item in Model.SolvedTest)
     {
         <tr>
@@ -13,9 +13,21 @@
             <td>@item.Value</td>
         </tr>
     }
-    <tr>
+    <tr class="text-success">
         <td>Result:</td>
-        <td>@Model.Result / @Model.SolvedTest.Count</td>
+        <td>@Model.Result %</td>
     </tr>
 </table>
+
+<script>
+    setTimeout(function () {
+        var messageH6 = document.getElementById("messageH6");
+            if (messageH6.style.visibility == "hidden") {
+                    messageH6.style.visibility = "visible";
+                } else {
+                    messageH6.style.visibility = "hidden";
+                }
+            
+        }, 3000)
+</script>
 

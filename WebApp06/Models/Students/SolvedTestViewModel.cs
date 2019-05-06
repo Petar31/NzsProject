@@ -9,6 +9,6 @@ namespace WebApp06.Models.Students
     {
         public Dictionary<string, string> SolvedTest { get; set; }
 
-        public int Result { get; set; }
+        public double Result { get; set; }
     }
 }

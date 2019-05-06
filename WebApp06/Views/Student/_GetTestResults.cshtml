@@ -1,0 +1,35 @@
+﻿@model List<WebApp06.Models.Students.TestResultViewModel>
+
+<div class="row justify-content-center">
+    <h2>Results</h2>
+</div>
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-bordered table-hover">
+            <thead class="text-success border-success">
+                <tr>
+
+                    <th>Test name</th>
+                    <th>Subject name</th>
+                    <th>Test result</th>
+                    <th>Date</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>@item.TestName</td>
+                        <td>@item.SubjectName</td>
+                        <td>@item.TestResult %</td>
+                        <td>@item.DateTime.ToShortDateString()</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

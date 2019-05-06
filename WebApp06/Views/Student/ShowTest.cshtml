@@ -7,107 +7,150 @@
 
 }
 
-<h2>ShowTest</h2>
-
-<form asp-action="SubmitTest">
-    @foreach (var item in Model)
-    {
-     
-     var rnd = random.Next(1, 5);
-    <div class="card">
-
-        <div class="card-header">
-            @item.Context
-        </div>
-        @if (rnd == 1)
-        {
-    <div class="card-body">
-        <input type="radio" name="@item.Id" value="@item.CorrectAnswer" />
-        <label>@item.CorrectAnswer</label><br />
-        <input type="radio" name="@item.Id" value="@item.WrongAnswer1" />
-        <label>@item.WrongAnswer1</label><br />
-        @if (@item.WrongAnswer2 != null)
-        {
-            <input type="radio" name="@item.Id" value="@item.WrongAnswer2" />
-            <label>@item.WrongAnswer2</label><br />
-        }
-        @if (@item.WrongAnswer3 != null)
-        {
-            <input type="radio" name="@item.Id" value="@item.WrongAnswer3" />
-            <label>@item.WrongAnswer3</label><br />
-        }
-
-    </div>
-        }
-        @if (rnd == 2)
-        {
-    <div class="card-body">
-
-        <input type="radio" name="@item.Id" value="@item.WrongAnswer1" />
-        <label>@item.WrongAnswer1</label><br />
-        <input type="radio" name="@item.Id" value="@item.CorrectAnswer" />
-        <label>@item.CorrectAnswer</label><br />
-        @if (@item.WrongAnswer2 != null)
-        {
-            <input type="radio" name="@item.Id" value="@item.WrongAnswer2" />
-            <label>@item.WrongAnswer2</label><br />
-        }
-        @if (@item.WrongAnswer3 != null)
-        {
-            <input type="radio" name="@item.Id" value="@item.WrongAnswer3" />
-            <label>@item.WrongAnswer3</label><br />
-        }
-
-    </div>
-        }
-        @if (rnd == 3)
-        {
-    <div class="card-body">
-
-        <input type="radio" name="@item.Id" value="@item.WrongAnswer1" />
-        <label>@item.WrongAnswer1</label><br />
-        @if (@item.WrongAnswer2 != null)
-        {
-            <input type="radio" name="@item.Id" value="@item.WrongAnswer2" />
-            <label>@item.WrongAnswer2</label><br />
-        }
-
-        <input type="radio" name="@item.Id" value="@item.CorrectAnswer" />
-        <label>@item.CorrectAnswer</label><br />
-        @if (@item.WrongAnswer3 != null)
-        {
-            <input type="radio" name="@item.Id" value="@item.WrongAnswer3" />
-            <label>@item.WrongAnswer3</label><br />
-        }
-
-    </div>
-        }
-        @if (rnd == 4)
-        {
-    <div class="card-body">
-
-        <input type="radio" name="@item.Id" value="@item.WrongAnswer1" />
-        <label>@item.WrongAnswer1</label><br />
-        @if (@item.WrongAnswer2 != null)
-        {
-            <input type="radio" name="@item.Id" value="@item.WrongAnswer2" />
-            <label>@item.WrongAnswer2</label><br />
-        }
-        @if (@item.WrongAnswer3 != null)
-        {
-            <input type="radio" name="@item.Id" value="@item.WrongAnswer3" />
-            <label>@item.WrongAnswer3</label><br />
-        }
-
-        <input type="radio" name="@item.Id" value="@item.CorrectAnswer" />
-        <label>@item.CorrectAnswer</label><br />
-    </div>
-        }
-
-    </div>
-
+<style>
+    .card{
+        margin-top:20px;
+        margin-bottom:20px;
     }
-    <input type="submit" value="Submit">
-</form>
+</style>
+
+<h1 class="text-center">Test</h1>
+<h6 class="text-center text-danger" id="messageH6">@ViewBag.Message</h6>
+<div class="row">
+    <div class="offset-2 col-sm-6">
+        <form asp-action="SubmitTest">
+            @foreach (var item in Model)
+            {
+
+                var rnd = random.Next(1, 5);
+                <div class="card">
+
+                    <div class="card-header bg-secondary text-light">
+                        @item.Context
+                    </div>
+                    @if (rnd == 1)
+                    {
+                        <div class="card-body">
+                            <input type="radio" name="@item.Id" value="@item.CorrectAnswer" />
+                            <label>@item.CorrectAnswer</label><br />
+                            <input type="radio" name="@item.Id" value="@item.WrongAnswer1" />
+                            <label>@item.WrongAnswer1</label><br />
+                            @if (@item.WrongAnswer2 != null)
+                            {
+                                <input type="radio" name="@item.Id" value="@item.WrongAnswer2" />
+                                <label>@item.WrongAnswer2</label><br />
+                            }
+                            @if (@item.WrongAnswer3 != null)
+                            {
+                                <input type="radio" name="@item.Id" value="@item.WrongAnswer3" />
+                                <label>@item.WrongAnswer3</label><br />
+                            }
+
+                        </div>
+                    }
+                    @if (rnd == 2)
+                    {
+                        <div class="card-body">
+
+                            <input type="radio" name="@item.Id" value="@item.WrongAnswer1" />
+                            <label>@item.WrongAnswer1</label><br />
+                            <input type="radio" name="@item.Id" value="@item.CorrectAnswer" />
+                            <label>@item.CorrectAnswer</label><br />
+                            @if (@item.WrongAnswer2 != null)
+                            {
+                                <input type="radio" name="@item.Id" value="@item.WrongAnswer2" />
+                                <label>@item.WrongAnswer2</label><br />
+                            }
+                            @if (@item.WrongAnswer3 != null)
+                            {
+                                <input type="radio" name="@item.Id" value="@item.WrongAnswer3" />
+                                <label>@item.WrongAnswer3</label><br />
+                            }
+
+                        </div>
+                    }
+                    @if (rnd == 3)
+                    {
+                        <div class="card-body">
+
+                            <input type="radio" name="@item.Id" value="@item.WrongAnswer1" />
+                            <label>@item.WrongAnswer1</label><br />
+                            @if (@item.WrongAnswer2 != null)
+                            {
+                                <input type="radio" name="@item.Id" value="@item.WrongAnswer2" />
+                                <label>@item.WrongAnswer2</label><br />
+                            }
+
+                            <input type="radio" name="@item.Id" value="@item.CorrectAnswer" />
+                            <label>@item.CorrectAnswer</label><br />
+                            @if (@item.WrongAnswer3 != null)
+                            {
+                                <input type="radio" name="@item.Id" value="@item.WrongAnswer3" />
+                                <label>@item.WrongAnswer3</label><br />
+                            }
+
+                        </div>
+                    }
+                    @if (rnd == 4)
+                    {
+                        <div class="card-body">
+
+                            <input type="radio" name="@item.Id" value="@item.WrongAnswer1" />
+                            <label>@item.WrongAnswer1</label><br />
+                            @if (@item.WrongAnswer2 != null)
+                            {
+                                <input type="radio" name="@item.Id" value="@item.WrongAnswer2" />
+                                <label>@item.WrongAnswer2</label><br />
+                            }
+                            @if (@item.WrongAnswer3 != null)
+                            {
+                                <input type="radio" name="@item.Id" value="@item.WrongAnswer3" />
+                                <label>@item.WrongAnswer3</label><br />
+                            }
+
+                            <input type="radio" name="@item.Id" value="@item.CorrectAnswer" />
+                            <label>@item.CorrectAnswer</label><br />
+                        </div>
+                    }
+
+                </div>
+
+            }
+            
+            <input type="hidden" name="testId" value="@ViewBag.TestId" />
+            <input type="hidden" name="queNum" value="@Model.Count()" />
+            <input type="submit" value="Submit" class="btn btn-success">
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    window.onload = function() {
+    var anchors = document.getElementsByTagName("a");
+    for (var i = 0; i < anchors.length; i++) {
+        anchors[i].onclick = function() {return false;};
+        }
+
+        setTimeout(function () {
+                var messageH6 = document.getElementById("messageH6");
+                if (messageH6.style.visibility == "hidden") {
+                    messageH6.style.visibility = "visible";
+                } else {
+                    messageH6.style.visibility = "hidden";
+                }
+            
+        }, 3000)
+    };
+
+    $(".btn-outline-danger").on("click", function () {
+        return false;
+    })
+
+
+</script>
 
  
