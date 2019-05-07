@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using WebApp06.Data;
 using WebApp06.Models;
-using WebApp06.Services;
 using WebApp06.Models.Test;
 using WebApp06.Models.Role;
 using WebApp06.Models.Students;
@@ -38,7 +37,6 @@ namespace WebApp06
 					.AddDefaultTokenProviders();
 
 			// Add application services.
-			services.AddTransient<IEmailSender, EmailSender>();
 
 			services.AddTransient<ITestService, TestService>();
 

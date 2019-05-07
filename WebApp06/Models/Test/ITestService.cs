@@ -34,6 +34,8 @@ namespace WebApp06.Models.Test
 
         IEnumerable<TestResult> GetTestResults(int testId);
 
+        string DeleteQuestions(int[] ids);
+
 
 
     }

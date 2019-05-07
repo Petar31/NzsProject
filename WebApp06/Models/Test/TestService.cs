@@ -246,5 +246,32 @@ namespace WebApp06.Models.Test
             }
             return testResults;
         }
+
+        public string DeleteQuestions(int[] ids)
+        {
+            string msg = "";
+            try
+            {
+                foreach (var id in ids)
+                {
+                    int x = context.Database.ExecuteSqlCommand($"Delete from Questions where Id = {id}");
+                    if (x > 0)
+                    {
+                        msg = "Questions deleted";
+                    }
+                    else
+                    {
+                        msg = "Error";
+                    }
+                }
+              
+            }
+            catch (Exception)
+            {
+
+                msg = "Error";
+            }
+            return msg;
+        }
     }
 }

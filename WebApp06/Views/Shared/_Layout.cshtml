@@ -37,13 +37,13 @@
                 {
                     @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "admin"))
                     {
-                        <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Admin">Role</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Admin">Administration</a></li>
 
                     }
                     @if (await UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "professor"))
                     {
                         <li class="nav-item"><a class="nav-link" asp-action="Index" asp-controller="Test">Random test</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-action="GetQuestions" asp-controller="Test">Test</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-action="GetQuestions" asp-controller="Test">Custom made test</a></li>
                         <li class="nav-item"><a class="nav-link" asp-action="AddQuestion" asp-controller="Test">Add question</a></li>
                         <li class="nav-item"><a class="nav-link" asp-action="GetSavedTests" asp-controller="Test">Saved tests</a></li>
                     }
@@ -64,10 +64,8 @@
 
 	<div class="container-fluid body-content">
 		@RenderBody()
-		<hr />
-		<footer>
-			<p>&copy; 2019 - WebApp06</p>
-		</footer>
+		
+		
 	</div>
 
 	<environment include="Development">

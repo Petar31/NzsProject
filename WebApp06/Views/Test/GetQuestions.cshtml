@@ -11,7 +11,7 @@
 <div class="row" id="app">
     <div class="col-sm-12">
         <div class="row">
-            
+           <div class="col-sm-2">{{ids}}</div>
             
         </div>
 
@@ -76,7 +76,8 @@
                 <span class="text-danger">{{valMsg1}}</span><br />
                 <input type="text" class="form-control" placeholder="Insert name" v-model="testName" />
                 <span class="text-danger">{{valMsg2}}</span><br />
-                <button class="btn btn-warning" v-on:click="saveTest()">Save test</button>
+                <button class="btn btn-warning" v-on:click="saveTest()">Save test</button><br /><br />
+                <button class="btn btn-danger" v-on:click="delQues()">Delete</button>
                 <div class="text-danger">{{message}}</div>
             </div>
         </div>
@@ -131,6 +132,21 @@
                         "SubjectId": this.selectedSubject
 					}
 				}).then(x => { this.message = x.data }).catch(error => this.message = error);
+            },
+            delQues() {
+                axios({
+                    method: "post",
+                    url: "/Test/DeleteQuestions",
+                    data: {
+                        "Ids": this.ids
+                    }
+                }).then(x => {
+                    this.message = x.data;
+                },
+                 setTimeout(function () {
+                        location.reload();
+                    }, 3000)
+                ).catch(error => this.message = error);
             },
             toggle(id) {
                 var ul = document.getElementById(id);
