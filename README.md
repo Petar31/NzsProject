@@ -20,10 +20,10 @@ U oba slučaja, kad završi selekciju pitanja, bira odeljenje kome će test biti
 Učenik može da radi testove koji se sastoje od pitanja zatvorenog tipa sa 2, 3 ili 4 ponuđena odgovora. Takođe, učenik može da vidi i rezultate rađenih testova izraženih u procentima.
 
 Korišćene tehnologije
--Asp.Net Core
--Entityframework Core
--MSSQL
--JQuery
--Bootstrap
--Javascript
--Vue.js
+1. Asp.Net Core
+2. Entityframework Core
+3. MSSQL
+4. JQuery
+5. Bootstrap
+6. Javascript
+7. Vue.js
