@@ -24,5 +24,7 @@ namespace WebApp06.Models.Role
 
         string DeleteUser(string userId);
 
+        Task<int> CreateRole(string role);
+
     }
 }

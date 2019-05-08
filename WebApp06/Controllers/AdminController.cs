@@ -125,29 +125,7 @@ namespace WebApp06.Controllers
 			return isRole;
 		}
 
-		private async Task<int> CreateRole(string role)
-		{
-			bool roleExists = await roleManager.RoleExistsAsync(role);
-			if (roleExists)
-			{
-				return 0;
-			}
-			else
-			{
-				IdentityRole identityRole = new IdentityRole(role);
-				var result = await roleManager.CreateAsync(identityRole);
-				if (result.Succeeded)
-				{
-					return 1;
-				}
-				else
-				{
-					return -1;
-				}
-			}
-
-
-		}
+		
 
 		private async Task<ApplicationUser> CreateAdmin()
 		{
@@ -182,9 +160,9 @@ namespace WebApp06.Controllers
 		public async Task<IActionResult> SystemAdmin()
 		{
 
-			int roleAdminExists = await CreateRole("admin");
-			int roleProfExsists = await CreateRole("professor");
-			int roleStudentExsists = await CreateRole("student");
+			int roleAdminExists = await roleService.CreateRole("admin");
+			int roleProfExsists = await roleService.CreateRole("professor");
+			int roleStudentExsists = await roleService.CreateRole("student");
 
 			ApplicationUser admin = await CreateAdmin();
 

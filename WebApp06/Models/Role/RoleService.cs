@@ -13,11 +13,12 @@ namespace WebApp06.Models.Role
     {
         private ApplicationDbContext context;
         private UserManager<ApplicationUser> userManager;
-
-        public RoleService(ApplicationDbContext _context, UserManager<ApplicationUser> _userManager)
+        private readonly RoleManager<IdentityRole> roleManager;
+        public RoleService(ApplicationDbContext _context, UserManager<ApplicationUser> _userManager, RoleManager<IdentityRole> _roleManager)
         {
             context = _context;
             userManager = _userManager;
+            roleManager = _roleManager;
         }
 
         public string AddSubjectToProf(string prof, int subject)
@@ -193,5 +194,33 @@ namespace WebApp06.Models.Role
                 return "Error";
             }
         }
+
+      
+
+        public async Task<int> CreateRole(string role)
+        {
+            bool roleExists = await roleManager.RoleExistsAsync(role);
+            if (roleExists)
+            {
+                return 0;
+            }
+            else
+            {
+                IdentityRole identityRole = new IdentityRole(role);
+                var result = await roleManager.CreateAsync(identityRole);
+                if (result.Succeeded)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
+
+        }
+
+       
     }
 }
