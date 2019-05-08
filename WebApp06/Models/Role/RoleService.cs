@@ -57,17 +57,32 @@ namespace WebApp06.Models.Role
             return proffesorViewModels;
         }
 
-        public string DeleteProf(string SubId, string UserId)
+        public async Task<string> DeleteProf(string SubId, string UserId)
         {
             try
             {
+                ApplicationUser applicationUser = context.Users.Find(UserId);
+                List<Professor> professors = context.Professors.FromSql($"Select * from Professors where UserId = {UserId}").ToList();
+                if (professors.Count == 1)
+                {
+                  var result =  await userManager.RemoveFromRoleAsync(applicationUser, "professor");
+                    if (result.Succeeded)
+                    {
+                        return "User deleted from the role";
+                    }
+                    else
+                    {
+                        return "User cannot be deleted from the role";
+                    }
+                }
+
                 int subId = int.Parse(SubId);
                 Professor professor = context.Professors.Where(x => x.SubjectId == subId && x.UserId == UserId).SingleOrDefault();
 
                 context.Professors.Remove(professor);
                 context.SaveChanges();
                 return "User is no more prof for the subject";
-               
+
             }
             catch (Exception)
             {
@@ -114,6 +129,58 @@ namespace WebApp06.Models.Role
                 if (x != 0)
                 {
                     return "User deleted";
+                }
+                else
+                {
+                    return "Error";
+                }
+            }
+            catch (Exception)
+            {
+
+                return "Error";
+            }
+        }
+
+        public async Task<string> DeleteStudent(string UserId)
+        {
+            try
+            {
+                ApplicationUser applicationUser = context.Users.Find(UserId);
+                var result = await userManager.RemoveFromRoleAsync(applicationUser, "student");
+                if (result.Succeeded)
+                {
+                    int x = context.Database.ExecuteSqlCommand($"Delete from Students where UserId = {UserId}");
+                    if (x == 1)
+                    {
+                        return "Student deleted";
+                    }
+                    else
+                    {
+                        return "Error";
+                    }
+                }
+                else
+                {
+                    return "User cannot be deleted from the role";
+                }
+               
+            }
+            catch (Exception)
+            {
+
+                return "Error";
+            }
+        }
+
+        public string DeleteSubject(int subjectId)
+        {
+            try
+            {
+                int x = context.Database.ExecuteSqlCommand($"Delete from Subjects where Id = {subjectId}");
+                if (x == 1)
+                {
+                    return "Subject deleted";
                 }
                 else
                 {

@@ -232,8 +232,7 @@ namespace WebApp06.Controllers
 			string msg;
 			try
 			{
-				//subject.Name = string.Concat(subject.Name.Trim().Substring(0, 1).ToUpper() , subject.Name.Trim().Substring(1, subject.Name.Length - 1).ToLower());
-
+			
 				dbContext.Subjects.Add(subject);
 				dbContext.SaveChanges();
 				msg = "Successfuly added subject";
@@ -302,11 +301,26 @@ namespace WebApp06.Controllers
 			return PartialView(professors);
 		}
 
-        public ActionResult DeleteProf(string SubId, string UserId)
+        public async Task<ActionResult> DeleteProf(string SubId, string UserId)
         {        
-            string msg = roleService.DeleteProf(SubId, UserId);
+            string msg = await roleService.DeleteProf(SubId, UserId);
             return RedirectToAction("Index", new { message = msg });
         }
+
+
+
+        public async Task<ActionResult> DeleteStudent(string id)
+        {
+
+            string msg = await roleService.DeleteStudent(id);
+            return RedirectToAction("Index", new { message = msg });
+        }
+
+        public ActionResult DeleteSubject(int id)
+          {
+            string msg = roleService.DeleteSubject(id);
+            return RedirectToAction("Index", new { message = msg });
+          }
 
         public async Task<PartialViewResult> _ConfigStudents()
         {

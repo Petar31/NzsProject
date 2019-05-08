@@ -12,7 +12,11 @@ namespace WebApp06.Models.Role
 
         List<ProffesorViewModel> GetProfessors();
 
-        string DeleteProf(string SubId, string UserId);
+        Task<string> DeleteProf(string SubId, string UserId);
+
+        Task<string> DeleteStudent(string UserId);
+
+        string DeleteSubject(int subjectId);
 
         string ConfigStudents(string id, int grade, int group);
 

@@ -128,11 +128,16 @@ namespace WebApp06.Controllers
 			return RedirectToAction(nameof(HomeController.Index), "Home");
 		}
 
-	
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
 
-		#region Helpers
 
-		private void AddErrors(IdentityResult result)
+        #region Helpers
+
+        private void AddErrors(IdentityResult result)
 		{
 			foreach (var error in result.Errors)
 			{
@@ -151,6 +156,8 @@ namespace WebApp06.Controllers
 				return RedirectToAction(nameof(HomeController.Index), "Home");
 			}
 		}
+
+
 
 		#endregion
 	}

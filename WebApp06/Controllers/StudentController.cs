@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebApp06.Models;
@@ -10,6 +11,7 @@ using WebApp06.Models.Test;
 
 namespace WebApp06.Controllers
 {
+    [Authorize(Roles = "student")]
     public class StudentController : Controller
     {
         private readonly IStudentService studentService;

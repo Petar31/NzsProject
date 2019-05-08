@@ -1,7 +1,8 @@
 ﻿@model List<WebApp06.Models.UserRoleViewModel>
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "Role";
-    
+
 }
 <link rel="stylesheet" href="~/css/roleIndex.css" />
 
@@ -9,12 +10,13 @@
 <div class="row text-danger" id="message">
     @ViewBag.Message
 </div>
+<div>@UserManager.GetUserName(User)</div>
 
 <div class="row" id="row1">
     <div class="col-sm-6">
 
         <div class="row">
-            
+
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link active" href="/Admin/Index">Users</a>
@@ -34,9 +36,9 @@
 
 
             </ul>
-            </div>
-    
-        <div class="row" >
+        </div>
+
+        <div class="row">
             <div class="col-sm-10 bg-white" id="partialDiv1">
                 <div class="row">
                     <div class="col-sm-12">
@@ -51,74 +53,74 @@
 
                             @foreach (var item in Model)
                             {
-                            <tr>
-                                <td>@item.ApplicationUser.FirstName</td>
-                                <td>@item.ApplicationUser.LastName</td>
-                                <td>@item.ApplicationUser.UserName</td>
-                                <td>
-                                    @foreach (var x in item.Roles)
-                                    {
-                                        <span>@x.Name</span>
-                                    }
-                                </td>
-                                <td>
-                                    @if (item.ApplicationUser.UserName != "admin")
-                                    {
-                                        <button class="btn btn-sm btn-danger" onclick="deleteUser('@item.ApplicationUser.Id', '@item.ApplicationUser.UserName')">Delete</button>
-                                    }
+                                <tr>
+                                    <td>@item.ApplicationUser.FirstName</td>
+                                    <td>@item.ApplicationUser.LastName</td>
+                                    <td>@item.ApplicationUser.UserName</td>
+                                    <td>
+                                        @foreach (var x in item.Roles)
+                                        {
+                                            <span>@x.Name</span><br />
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (item.ApplicationUser.UserName != "admin" && item.ApplicationUser.UserName != UserManager.GetUserName(User))
+                                        {
+                                            <button class="btn btn-sm btn-danger" onclick="deleteUser('@item.ApplicationUser.Id', '@item.ApplicationUser.UserName')">Delete</button>
+                                        }
 
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             }
                         </table>
                     </div>
 
                 </div>
             </div>
-           
-           
-        </div>
-        
+
+
         </div>
 
-        <div class="col-sm-6">
-            <div class="row">
-                <ul class="nav nav-tabs">
+    </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" id="addSubjectBtn" href="#">New subject</a>
-                    </li>
+    <div class="col-sm-6">
+        <div class="row">
+            <ul class="nav nav-tabs">
 
-                    <li class="nav-item">
-                        <a class="nav-link" id="AddUserInRoleBtn" href="#">Add user in role</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="AddSubToProfBtn" href="#">Config profs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="ConfigStudentsBtn" href="#">Config students</a>
-                    </li>
-                 
+                <li class="nav-item">
+                    <a class="nav-link" id="addSubjectBtn" href="#">New subject</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" id="AddUserInRoleBtn" href="#">Add user in role</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="AddSubToProfBtn" href="#">Config profs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="ConfigStudentsBtn" href="#">Config students</a>
+                </li>
 
 
-                </ul>
+
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 bg-white" id="partialDiv2">
+
             </div>
-            <div class="row">
-                <div class="col-sm-12 bg-white" id="partialDiv2">
-                    
-                </div>
-            </div>
-
-
         </div>
 
 
     </div>
 
 
+</div>
 
 
-    
+
+
+
 <div class="modal fade" id="deleteUsermodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -127,28 +129,30 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-            </div>     
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <form asp-action="DeleteUser">
-                   <input type="hidden" id="deleteId" name="userId" />
+                    <input type="hidden" id="deleteId" name="userId" />
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
-               
+
             </div>
         </div>
     </div>
+    
+   
 </div>
 
 
 <script>
     $(document).ready(function () {
-       $.get("/Admin/_AddSubject", function (data) {
+        $.get("/Admin/_AddSubject", function (data) {
             $("#partialDiv2").html(data);
-       })
+        })
         $("#addSubjectBtn").addClass("active");
-        
-     });
+
+    });
 
     $("a").on("click", function () {
 
@@ -163,8 +167,8 @@
 
     });
 
-   
-    
+
+
 
     $("#getProfsBtn").on("click", function () {
         $.get("/Admin/_GetProfessors", function (data) {
@@ -172,19 +176,19 @@
         })
     })
 
-       $("#getStudentsBtn").on("click", function () {
+    $("#getStudentsBtn").on("click", function () {
         $.get("/Admin/_GetStudents", function (data) {
             $("#partialDiv1").html(data);
         })
     })
-    
-    
+
+
 
     $("#AddSubToProfBtn").on("click", function () {
         $.get("/Admin/_AddSubjectToProf", function (data) {
             $("#partialDiv2").html(data);
         })
-    }) 
+    })
 
     $("#ConfigStudentsBtn").on("click", function () {
         $.get("/Admin/_ConfigStudents", function (data) {
@@ -204,9 +208,9 @@
         })
     })
 
-  
 
-    
+
+
 
     $("#getRolesBtn").on("click", function () {
         $.get("/Admin/_GetRoles", function (data) {
@@ -224,7 +228,7 @@
         $("#deleteUsermodalHeader").html(`Delete ${userName} ?`);
         $("#deleteUsermodal").modal('show');
         $("#deleteId").val(id);
-        }
+    }
 
     var message = document.getElementById("message");
     setInterval(function () {
