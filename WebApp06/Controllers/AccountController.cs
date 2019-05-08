@@ -55,8 +55,7 @@ namespace WebApp06.Controllers
 			ViewData["ReturnUrl"] = returnUrl;
 			if (ModelState.IsValid)
 			{
-				// This doesn't count login failures towards account lockout
-				// To enable password failures to trigger account lockout, set lockoutOnFailure: true
+			
 				var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
 				if (result.Succeeded)
 				{
@@ -76,7 +75,6 @@ namespace WebApp06.Controllers
 				}
 			}
 
-			// If we got this far, something failed, redisplay form
 			return View(model);
 		}
 
@@ -118,7 +116,6 @@ namespace WebApp06.Controllers
 				AddErrors(result);
 			}
 
-			// If we got this far, something failed, redisplay form
 			return View(model);
 		}
 

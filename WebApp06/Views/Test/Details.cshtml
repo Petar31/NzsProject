@@ -61,6 +61,7 @@
                     <tr>
                         <th>Student first name</th>
                         <th>Student last name</th>
+                        <th>Date</th>
                         <th>Result</th>
                     </tr>
                 </thead>
@@ -74,7 +75,10 @@
                         <td>
                             @item.ApplicationUser.LastName
                         </td>
-                        <td>@item.Result</td>
+                        <td>
+                            @item.DateTime.ToShortDateString()
+                        </td>
+                        <td>@item.Result %</td>
                     </tr>
                     }
 

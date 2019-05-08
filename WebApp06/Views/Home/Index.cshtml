@@ -1,24 +1,30 @@
-﻿<link rel="stylesheet" href="~/css/IndexHome.css" />
+﻿@inject SignInManager<ApplicationUser> SignInManager
+
+<link rel="stylesheet" href="~/css/IndexHome.css" />
 
 @{
-	ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home Page";
 }
 
 <div class="row">
-	<div class="col-sm-4">
-		@if (!ViewBag.AdminExsists)
-		{
-			<a asp-controller="Role" asp-action="SystemAdmin" class="btn btn-danger">Add admin</a>
-		}
-	</div>
+    <div class="col-sm-4">
+        @if (!ViewBag.AdminExsists)
+        {
+            <a asp-controller="Role" asp-action="SystemAdmin" class="btn btn-danger">Add admin</a>
+        }
+    </div>
 </div>
 <div class="row" id="row1">
-  <div class="offset-3 col-sm-8 d-flex align-items-center">
-      <div>
-          <h1>Welcome to Test Generator app </h1>
-          <h1>made by Petar Petrovic</h1>
-      </div>
-      
-  </div>
+    <div class="offset-3 col-sm-8 d-flex align-items-center">
+        <div>
+            <h1>Welcome to Test Generator app </h1>
+            <h1>made by Petar Petrovic</h1>
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                <h1 class="text-danger">Please login</h1>
+            }
+        </div>
+
+    </div>
 
 </div>
